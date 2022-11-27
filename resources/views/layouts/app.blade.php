@@ -23,7 +23,11 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+            @if(Auth('users')->user())
+                @include('layouts.user-navigation')
+            @elseif(Auth('doctors')->user())
+                @include('layouts.doctor-navigation')
+            @endif
 
             <!-- Page Heading -->
             <header class="bg-white shadow">

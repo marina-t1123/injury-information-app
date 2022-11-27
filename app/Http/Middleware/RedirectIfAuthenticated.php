@@ -9,8 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
 {
+    private const GUARD_USER = 'users';
+    private const GUARD_DOCTOR = 'doctors';
+
     /**
      * Handle an incoming request.
+     * ログイン済みユーザーがアクセスしてきた際のリダイレクト処理
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
@@ -19,12 +23,20 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
-        $guards = empty($guards) ? [null] : $guards;
+        // $guards = empty($guards) ? [null] : $guards;
 
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
-            }
+        // foreach ($guards as $guard) {
+        //     if (Auth::guard($guard)->check()) {
+        //         return redirect(RouteServiceProvider::HOME);
+        //     }
+        // }
+
+        if(Auth::guard(self::GUARD_USER)->check() && $request->routeIs('user.*')){
+            return redirect(RouteServiceProvider::HOME);
+        }
+
+        if(Auth::guard(self::GUARD_DOCTOR)->check() && $request->routeIs('doctor.*')){
+            return redirect(RouteServiceProvider::DOCTOR_HOME);
         }
 
         return $next($request);
