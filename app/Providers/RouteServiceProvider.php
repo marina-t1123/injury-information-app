@@ -18,7 +18,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     //各ユーザーのログイン後のリダイレクト先
-    public const HOME = '/dashboard';
+    public const HOME = '/mypage';
     public const DOCTOR_HOME = '/doctor/dashboard';
 
     /**

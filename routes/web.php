@@ -17,8 +17,9 @@ Route::get('/', function () {
     return view('user.welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('user.dashboard');
-})->middleware(['auth:users'])->name('dashboard');
+//ログイン後の遷移先(マイページ)
+Route::get('/mypage', function () {
+    return view('user.mypage');
+})->middleware(['auth:users'])->name('mypage');
 
 require __DIR__.'/auth.php';
