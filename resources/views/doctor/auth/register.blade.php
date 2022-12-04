@@ -1,10 +1,12 @@
 <x-guest-layout>
     <x-auth-card>
-        ドクター 新規登録
+        <h2 class="text-center">ドクター新規登録</h2>
         <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
+            <div class="w-20">
+                <a href="/">
+                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                </a>
+            </div>
         </x-slot>
 
         <!-- Validation Errors -->

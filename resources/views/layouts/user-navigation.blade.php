@@ -15,7 +15,19 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('user.mypage')" :active="request()->routeIs('user.mypage')">
-                        {{ __('Dashboard') }}
+                        <p>マイページ</p>
+                    </x-nav-link>
+                    <x-nav-link>
+                        <p>選手新規作成</p>
+                    </x-nav-link>
+                    <x-nav-link>
+                        <p>既往歴一覧</p>
+                    </x-nav-link>
+                    <x-nav-link>
+                        <p>問診票一覧</p>
+                    </x-nav-link>
+                    <x-nav-link>
+                        <p>カルテ一覧</p>
                     </x-nav-link>
                 </div>
             </div>
@@ -36,6 +48,8 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link :href="route('doctor.register')">ドクター新規登録</x-dropdown-link>
+                        <x-dropdown-link :href="route('doctor.login')">ドクターログイン</x-dropdown-link>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('user.logout') }}">
                             @csrf
@@ -43,7 +57,7 @@
                             <x-dropdown-link :href="route('user.logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('ログアウト') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -66,16 +80,47 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('user.mypage')" :active="request()->routeIs('user.mypage')">
-                {{ __('Dashboard') }}
+                <p>マイページ</p>
+            </x-responsive-nav-link>
+            <x-responsive-nav-link>
+                <p>選手新規作成</p>
+            </x-responsive-nav-link>
+            <x-responsive-nav-link>
+                <p>既往歴一覧</p>
+            </x-responsive-nav-link>
+            <x-responsive-nav-link>
+                <p>問診票一覧</p>
+            </x-responsive-nav-link>
+            <x-responsive-nav-link>
+                <p>カルテ一覧</p>
+            </x-responsive-nav-link>
+            <x-responsive-nav-link>
+                <p>ドクター一覧</p>
             </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                <p>・基本情報</p>
+                <div class="font-medium text-base text-gray-600">{{ Auth::user()->name }}</div>
+                <div class="font-medium text-sm text-gray-600">{{ Auth::user()->email }}</div>
+                <p>・詳細情報</p>
+                所属<br>
+                経歴
             </div>
+
+            <x-responsive-nav-link>
+                <p>基本情報編集</p>
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link>
+                <p>詳細情報登録</p>
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link>
+                <p>詳細情報編集</p>
+            </x-responsive-nav-link>
 
             <div class="mt-3 space-y-1">
                 <!-- Authentication -->
@@ -85,7 +130,7 @@
                     <x-responsive-nav-link :href="route('user.logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        <p>ログアウト</p>
                     </x-responsive-nav-link>
                 </form>
             </div>
