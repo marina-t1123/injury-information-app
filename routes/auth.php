@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AthleteController;
 use App\Http\Controllers\User\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\User\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\User\Auth\EmailVerificationNotificationController;
@@ -53,4 +54,32 @@ Route::middleware('auth:users')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+
+    // 選手関連のルーティンググループ
+    Route::group(['prefix' => 'athlete', 'as' => 'athlete.'], function () {
+        // 選手設定ページ表示
+        Route::get('athlete/setting', [AthleteController::class, 'showSettingPage'])
+            ->name('show.setting');
+
+        // 選手新規作成画面表示
+        Route::get('athlete/create', [AthleteController::class, 'create'])
+            ->name('create');
+
+        // 選手新規作成
+        Route::post('athlete/create', [AthleteController::class, 'store'])
+            ->name('store');
+
+        // 選手編集画面表示
+        Route::get('athlete/edit', [AthleteController::class, 'edit'])
+            ->name('edit');
+
+        // 選手編集
+        Route::post('athlete/edit', [AthleteController::class, 'update'])
+            ->name('update');
+
+        // 選手削除
+        Route::post('/mypage', [AthleteController::class, 'destroy'])
+            ->name('destroy');
+    });
+
 });

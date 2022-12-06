@@ -17,7 +17,7 @@
                     <x-nav-link :href="route('user.mypage')" :active="request()->routeIs('user.mypage')">
                         <p>マイページ</p>
                     </x-nav-link>
-                    <x-nav-link>
+                    <x-nav-link :href="route('user.athlete.create')" :active="request()->routeIs('user.athlete.create')">
                         <p>選手新規作成</p>
                     </x-nav-link>
                     <x-nav-link>
