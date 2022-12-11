@@ -18,6 +18,10 @@ class CreateAthletesTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone_number');
+            $table->string('team')->nullable();
+            $table->string('event');
+            $table->string('event_detail');
+            $table->text('career')->nullable();
             $table->timestamps();
         });
     }

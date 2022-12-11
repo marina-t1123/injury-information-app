@@ -120,7 +120,7 @@ return [
     'starts_with'          => ':attributeには、:valuesのどれかで始まる値を指定してください。',
     'string'               => ':attributeは文字列を指定してください。',
     'timezone'             => ':attributeには、有効なゾーンを指定してください。',
-    'unique'               => ':attributeの値は既に存在しています。',
+    'unique'               => ':attributeの値は既に登録されています。',
     'uploaded'             => ':attributeのアップロードに失敗しました。',
     'url'                  => ':attributeに正しい形式を指定してください。',
     'uuid'                 => ':attributeに有効なUUIDを指定してください。',
@@ -158,6 +158,9 @@ return [
         'email' => 'メールアドレス',
         'password' => 'パスワード',
         'phone_number' => '電話番号',
+        'team' => '所属名',
+        'event' => '競技名',
+        'event_detail' => '種目名・ポジション',
     ],
 
 ];
