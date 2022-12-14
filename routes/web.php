@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\AthleteController;
+use App\Http\Controllers\User\MedicalHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,43 @@ Route::prefix('athlete') //URLのプレフィックスとして「/athlete」
         // 選手削除
         Route::post('/{athlete_id}/destroy', [AthleteController::class, 'destroy'])
         ->name('athlete.destroy');
+});
+
+//既往歴のルーティング
+Route::prefix('medical-history') //URLのプレフィックスとして「/athlete」
+    ->middleware(['auth:users']) //トレーナーの認証(ルート名の先頭にuser.がつく)
+    ->group(function (){ //上記の条件を適応させて、選手関連のルート情報をグループ化
+        // 既往歴メニューページ表示
+        Route::get('/athlete-id.{athlete_id}', [MedicalHistoryController::class, 'showMedicalHistoryPage'])
+        ->name('medical-history.show.menu');
+
+        // 既往歴一覧ページ表示
+        Route::get('/index', [MedicalHistoryController::class, 'index'])
+        ->name('medical-history.index');
+
+        // 既往歴新規作成画面表示
+        Route::get('/{athlete_id}/create', [MedicalHistoryController::class, 'create'])
+        ->name('medical-history.create');
+
+        // 既往歴新規作成
+        Route::post('/{athlete_id}/create', [MedicalHistoryController::class, 'store'])
+        ->name('medical-history.store');
+
+        // 既往歴詳細ページ
+        Route::get('/{medical_history_id}/show', [MedicalHistoryController::class, 'show'])
+        ->name('medical-history.show');
+
+        // 既往歴編集画面表示
+        Route::get('/{medical_history_id}/edit',  [MedicalHistoryController::class, 'edit'])
+        ->name('medical-history.edit');
+
+        // 既往歴編集
+        Route::post('/{medical_history_id}/edit',  [MedicalHistoryController::class, 'update'])
+        ->name('medical-history.update');
+
+        // 既往歴削除
+        Route::post('/{medical_history_id}/destroy', [MedicalHistoryController::class, 'destroy'])
+        ->name('medical-history.destroy');
 });
 
 

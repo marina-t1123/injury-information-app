@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Athlete extends Model
 {
@@ -53,11 +54,15 @@ class Athlete extends Model
         }
     }
 
-    // 各選手の詳細情報のリレーション
-
-
-    // 各選手の既往歴のリレーション
-
+    /**
+     * 選手の既往歴のリレーション
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function medicalHistories() : HasMany
+    {
+        return $this->HasMany(MedicalHistory::class);
+    }
 
     // 各選手の問診票のリレーション
 

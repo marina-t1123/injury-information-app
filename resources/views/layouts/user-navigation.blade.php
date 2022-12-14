@@ -20,9 +20,9 @@
                     <x-nav-link :href="route('user.athlete.create')" :active="request()->routeIs('user.athlete.create')">
                         <p>選手新規作成</p>
                     </x-nav-link>
-                    <x-nav-link>
+                    {{-- <x-nav-link :href="route('user.medical-history.index')" :active="request()->routeIs('user.medical-history.index')">
                         <p>既往歴一覧</p>
-                    </x-nav-link>
+                    </x-nav-link> --}}
                     <x-nav-link>
                         <p>問診票一覧</p>
                     </x-nav-link>
