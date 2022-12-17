@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\AthleteController;
 use App\Http\Controllers\User\MedicalHistoryController;
+use App\Http\Controllers\User\MedicalQuestionnaireController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,27 +34,27 @@ Route::prefix('athlete') //URLのプレフィックスとして「/athlete」
     ->group(function (){ //上記の条件を適応させて、選手関連のルート情報をグループ化
         // 選手設定ページ表示
         Route::get('/{athlete_id}/setting', [AthleteController::class, 'showSettingPage'])
-        ->name('athlete.show.setting');
+            ->name('athlete.show.setting');
 
         // 選手新規作成画面表示
         Route::get('/create', [AthleteController::class, 'create'])
-        ->name('athlete.create');
+            ->name('athlete.create');
 
         // 選手新規作成
         Route::post('/create', [AthleteController::class, 'store'])
-        ->name('athlete.store');
+            ->name('athlete.store');
 
         // 選手編集画面表示
         Route::get('/{athlete_id}/edit',  [AthleteController::class, 'edit'])
-        ->name('athlete.edit');
+            ->name('athlete.edit');
 
         // 選手編集
         Route::post('/{athlete_id}/edit',  [AthleteController::class, 'update'])
-        ->name('athlete.update');
+            ->name('athlete.update');
 
         // 選手削除
         Route::post('/{athlete_id}/destroy', [AthleteController::class, 'destroy'])
-        ->name('athlete.destroy');
+            ->name('athlete.destroy');
 });
 
 //既往歴のルーティング
@@ -61,37 +62,76 @@ Route::prefix('medical-history') //URLのプレフィックスとして「/athle
     ->middleware(['auth:users']) //トレーナーの認証(ルート名の先頭にuser.がつく)
     ->group(function (){ //上記の条件を適応させて、選手関連のルート情報をグループ化
         // 既往歴メニューページ表示
-        Route::get('/athlete-id.{athlete_id}', [MedicalHistoryController::class, 'showMedicalHistoryPage'])
-        ->name('medical-history.show.menu');
+        Route::get('/{athlete_id}', [MedicalHistoryController::class, 'showMedicalHistoryPage'])
+            ->name('medical-history.show.menu');
 
         // 既往歴一覧ページ表示
         Route::get('/index', [MedicalHistoryController::class, 'index'])
-        ->name('medical-history.index');
+            ->name('medical-history.index');
 
         // 既往歴新規作成画面表示
         Route::get('/{athlete_id}/create', [MedicalHistoryController::class, 'create'])
-        ->name('medical-history.create');
+            ->name('medical-history.create');
 
         // 既往歴新規作成
         Route::post('/{athlete_id}/create', [MedicalHistoryController::class, 'store'])
-        ->name('medical-history.store');
+            ->name('medical-history.store');
 
         // 既往歴詳細ページ
         Route::get('/{medical_history_id}/show', [MedicalHistoryController::class, 'show'])
-        ->name('medical-history.show');
+            ->name('medical-history.show');
 
         // 既往歴編集画面表示
         Route::get('/{medical_history_id}/edit',  [MedicalHistoryController::class, 'edit'])
-        ->name('medical-history.edit');
+            ->name('medical-history.edit');
 
         // 既往歴編集
         Route::post('/{medical_history_id}/edit',  [MedicalHistoryController::class, 'update'])
-        ->name('medical-history.update');
+            ->name('medical-history.update');
 
         // 既往歴削除
         Route::post('/{medical_history_id}/destroy', [MedicalHistoryController::class, 'destroy'])
-        ->name('medical-history.destroy');
-});
+            ->name('medical-history.destroy');
+    }
+);
+
+//問診票のルーティング
+Route::prefix('medical-questionnaire')
+    ->middleware(['auth:users'])
+    ->group(function (){
+        //問診票メニューページ表示
+        Route::get('/{athlete_id}', [MedicalQuestionnaireController::class, 'showMedicalQuestionnairePage'])
+            ->name('medical-questionnaire.show.menu');
+
+        //問診票一覧ページ表示
+        Route::get('/index', [MedicalQuestionnaireController::class, 'index'])
+            ->name('medical-questionnaire.index');
+
+        //問診票新規作成画面表示
+        Route::get('/{athlete_id}/create', [MedicalQuestionnaireController::class, 'create'])
+            ->name('medical-questionnaire.create');
+
+        //問診票新規作成
+        Route::post('/{athlete_id}/create', [MedicalQuestionnaireController::class, 'store'])
+            ->name('medical-questionnaire.store');
+
+        //問診票詳細ページ
+        Route::get('/{medical_questionnaire_id}/show', [MedicalQuestionnaireController::class, 'show'])
+            ->name('medical-questionnaire.show');
+
+        //問診票編集画面表示
+        Route::get('/{medical_questionnaire_id}/edit', [MedicalQuestionnaireController::class, 'edit'])
+            ->name('medical-questionnaire.edit');
+
+        //問診票編集
+        Route::post('/{medical_questionnaire_id}/edit', [MedicalQuestionnaireController::class, 'update'])
+            ->name('medical-questionnaire.update');
+
+        //問診票削除
+        Route::post('/{medical_questionnaire_id}/destroy', [MedicalQuestionnaireController::class, 'destroy'])
+            ->name('medical-questionnaire.destroy');
+    }
+);
 
 
 require __DIR__.'/auth.php';
