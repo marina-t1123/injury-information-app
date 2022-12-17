@@ -64,7 +64,16 @@ class Athlete extends Model
         return $this->HasMany(MedicalHistory::class);
     }
 
-    // 各選手の問診票のリレーション
+    /**
+     * 選手の問診票のリレーション
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function medicalQuestionnaires() : HasMany
+    {
+        return $this->HasMany(MedicalQuestionnaire::class);
+    }
+
 
 
     // 選手のカルテのリレーション
