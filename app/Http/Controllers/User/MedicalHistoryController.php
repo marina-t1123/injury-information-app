@@ -19,7 +19,8 @@ class MedicalHistoryController extends Controller
     /**
      * 既往歴新規作成ページの表示
      *
-     *
+     * @var \Illuminate\Database\Eloquent\Collection $medicalHistories
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -32,7 +33,8 @@ class MedicalHistoryController extends Controller
     /**
      * 既往歴メニューページの表示
      *
-     *
+     * @param int $athlete_id
+     * @return \Illuminate\View\View
      */
     public function showMedicalHistoryPage($athlete_id)
     {
@@ -132,7 +134,8 @@ class MedicalHistoryController extends Controller
     /**
      * 既往歴詳細ページ
      *
-     *
+     * @param int $medical_history_id
+     * @return @var \Illuminate\View\View
      */
     public function show($medical_history_id)
     {
@@ -192,7 +195,8 @@ class MedicalHistoryController extends Controller
     /**
      * 既往歴削除機能
      *
-     *
+     * @param int $medical_history_id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($medical_history_id)
     {
