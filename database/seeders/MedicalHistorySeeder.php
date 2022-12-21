@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class MedicalHistorySeeder extends Seeder
 {
@@ -24,7 +25,9 @@ class MedicalHistorySeeder extends Seeder
                 'hospital_visit' => '1',
                 'diagnosis' => '右膝内側靭帯のⅠ度損傷',
                 'current_situation' => '現在は特に問題ない為、練習にも参加している状態。',
-                'athlete_id' => '1'
+                'athlete_id' => '1',
+                'created_at' => new Carbon('2022-12-01'),
+                'updated_at' => new Carbon('2022-12-01'),
             ],
             [
                 'injured_day' => '2020/2/8',
@@ -34,7 +37,9 @@ class MedicalHistorySeeder extends Seeder
                 'hospital_visit' => '0',
                 'diagnosis' => '',
                 'current_situation' => 'たまに内反捻挫を繰り返して、痛みが出ている場合はテーピングをして練習参加。',
-                'athlete_id' => '2'
+                'athlete_id' => '2',
+                'created_at' => new Carbon('2022-12-01'),
+                'updated_at' => new Carbon('2022-12-01'),
             ],
             [
                 'injured_day' => '2022/6/20',
@@ -44,7 +49,9 @@ class MedicalHistorySeeder extends Seeder
                 'hospital_visit' => '1',
                 'diagnosis' => '肘関節内側側副靭帯損傷(肘MCL損傷)Ⅱ度',
                 'current_situation' => '現在も痛みが出ることがあるのでテーピングをして練習に参加。終わった後はアイシングを行う。',
-                'athlete_id' => '3'
+                'athlete_id' => '3',
+                'created_at' => new Carbon('2022-12-01'),
+                'updated_at' => new Carbon('2022-12-01'),
             ],
             [
                 'injured_day' => '2021/8/24',
@@ -54,7 +61,9 @@ class MedicalHistorySeeder extends Seeder
                 'hospital_visit' => '1',
                 'diagnosis' => '右肩肩鎖関節脱臼',
                 'current_situation' => '船橋整形外科で手術を行い、メディカルリハとアスリハ実施。2022年の2月から練習復帰。',
-                'athlete_id' => '4'
+                'athlete_id' => '4',
+                'created_at' => new Carbon('2022-12-01'),
+                'updated_at' => new Carbon('2022-12-01'),
             ],
             [
                 'injured_day' => '2019/11/15',
@@ -64,7 +73,9 @@ class MedicalHistorySeeder extends Seeder
                 'hospital_visit' => '1',
                 'diagnosis' => '右膝内側靭帯のⅠ度損傷',
                 'current_situation' => '現在は特に問題ない為、練習にも参加している状態。',
-                'athlete_id' => '5'
+                'athlete_id' => '5',
+                'created_at' => new Carbon('2022-12-01'),
+                'updated_at' => new Carbon('2022-12-01'),
             ],
             [
                 'injured_day' => '2020/2/8',
@@ -74,7 +85,9 @@ class MedicalHistorySeeder extends Seeder
                 'hospital_visit' => '0',
                 'diagnosis' => '',
                 'current_situation' => 'たまに内反捻挫を繰り返して、痛みが出ている場合はテーピングをして練習参加。',
-                'athlete_id' => '6'
+                'athlete_id' => '6',
+                'created_at' => new Carbon('2022-12-01'),
+                'updated_at' => new Carbon('2022-12-01'),
             ],
             [
                 'injured_day' => '2022/6/20',
@@ -84,7 +97,9 @@ class MedicalHistorySeeder extends Seeder
                 'hospital_visit' => '1',
                 'diagnosis' => '肘関節内側側副靭帯損傷(肘MCL損傷)Ⅱ度',
                 'current_situation' => '現在も痛みが出ることがあるのでテーピングをして練習に参加。終わった後はアイシングを行う。',
-                'athlete_id' => '7'
+                'athlete_id' => '7',
+                'created_at' => new Carbon('2022-12-01'),
+                'updated_at' => new Carbon('2022-12-01'),
             ],
             [
                 'injured_day' => '2021/8/24',
@@ -94,7 +109,9 @@ class MedicalHistorySeeder extends Seeder
                 'hospital_visit' => '1',
                 'diagnosis' => '右肩肩鎖関節脱臼',
                 'current_situation' => '船橋整形外科で手術を行い、メディカルリハとアスリハ実施。2022年の2月から練習復帰。',
-                'athlete_id' => '8'
+                'athlete_id' => '8',
+                'created_at' => new Carbon('2022-12-01'),
+                'updated_at' => new Carbon('2022-12-01'),
             ],
         ]);
     }

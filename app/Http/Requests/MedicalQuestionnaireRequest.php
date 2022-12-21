@@ -31,13 +31,13 @@ class MedicalQuestionnaireRequest extends FormRequest
             'pain' => 'required|boolean',
             'swelling' => 'required|boolean',
             'first_aid' => 'required|string|max:1500',
-            'orthopedic_test' => 'nullable|string|max:1500',
-            'muscle_strength_test' => 'nullable|string|max:1500',
+            'orthopedic_test' => 'string|max:1500',
+            'muscle_strength_test' => 'string|max:1500',
             'trainer_findings' => 'required|string|max:1500',
-            'future_plans' => 'nullable|string|max:1500',
-            'injury_image1' => 'nullable|file|image|mimes:jpg,png,jpeg',
-            'injury_image2' => 'nullable|file|image|mimes:jpg,png,jpeg',
-            'injury_image3' => 'nullable|file|image|mimes:jpg,png,jpeg',
+            'future_plans' => 'string|max:1500',
+            'injury_image1' => 'file|image|mimes:jpg,png,jpeg',
+            'injury_image2' => 'file|image|mimes:jpg,png,jpeg',
+            'injury_image3' => 'file|image|mimes:jpg,png,jpeg',
         ];
     }
 
@@ -49,7 +49,7 @@ class MedicalQuestionnaireRequest extends FormRequest
     public function messages()
     {
         return [
-            'injured_day' => ':attribute の日付は今日より前の日付を指定してください。',
+            'injured_day.before' => ':attribute の日付は今日より前の日付を指定してください。',
         ];
     }
 

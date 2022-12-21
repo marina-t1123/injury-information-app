@@ -121,31 +121,13 @@
                                 <textarea id="future_plans" name="future_plans" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">{{ old('future_plans') }}</textarea>
                             </div>
                         </div>
-                        <!-- 怪我の画像１ -->
+                        <!-- 怪我の画像 -->
                         <div class="p-2 w-3/4 mx-auto">
                             <div class="relative">
-                                <label for="injury_image1" class="leading-7 text-sm text-gray-600">
-                                    怪我の画像１
+                                <label for="injury_image" class="leading-7 text-sm text-gray-600">
+                                    怪我の画像
                                 </label>
-                                <input type="file" accept="image/png,image/jpeg,image/jpg" name="injury_image1">
-                            </div>
-                        </div>
-                        <!-- 怪我の画像２ -->
-                        <div class="p-2 w-3/4 mx-auto">
-                            <div class="relative">
-                                <label for="injury_image2" class="leading-7 text-sm text-gray-600">
-                                    怪我の画像２
-                                </label>
-                                <input type="file" accept="image/png,image/jpeg,image/jpg" name="injury_image2">
-                            </div>
-                        </div>
-                        <!-- 怪我の画像３ -->
-                        <div class="p-2 w-3/4 mx-auto">
-                            <div class="relative">
-                                <label for="injury_image3" class="leading-7 text-sm text-gray-600">
-                                    怪我の画像３
-                                </label>
-                                <input type="file" accept="image/png,image/jpeg,image/jpg" name="injury_image3">
+                                <input type="file" accept="image/png,image/jpeg,image/jpg" name="injury_image">
                             </div>
                         </div>
                         <!-- ボタン -->

@@ -26,12 +26,8 @@
                     <p>筋力テスト： {{ $medicalQuestionnaire->muscle_stremgth_test }}</p>
                     <p>トレーナー所見： {{ $medicalQuestionnaire->trainer_findings }}</p>
                     <p>今後の予定： {{ $medicalQuestionnaire->future_plans }}</p>
-                    <p>怪我の画像１：</p>
-                    <img src="{{ $medicalQuestionnaire->injury_image1 ? asset($medicalQuestionnaire->injury_image1) : asset("images/no_image.png") }}">
-                    <p>怪我の画像２：</p>
-                    <img src="{{ $medicalQuestionnaire->injury_image2 ? asset($medicalQuestionnaire->injury_image2) : asset("images/no_image.png") }}">
-                    <p>怪我の画像３：</p>
-                    <img src="{{ $medicalQuestionnaire->injury_image3 ? asset($medicalQuestionnaire->injury_image3) : asset("images/no_image.png") }}">
+                    <p>怪我の画像：</p>
+                    <x-injury-image :medicalQuestionnaire=$medicalQuestionnaire />
                 </div>
             </div>
             <!-- 既往歴メニュー -->

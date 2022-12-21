@@ -27,9 +27,7 @@ class MedicalQuestionnaire extends Model
         'muscle_strength_test', //筋力テスト
         'trainer_findings', //トレーナー所見
         'future_plans', //今後の予定
-        'injury_image1', //怪我の画像１
-        'injury_image2', //怪我の画像２
-        'injury_image3', //怪我の画像３
+        'injury_image', //怪我の画像
         'athlete_id', //選手ID
     ];
 
