@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Athlete extends Model
 {
@@ -72,6 +73,23 @@ class Athlete extends Model
     public function medicalQuestionnaires() : HasMany
     {
         return $this->HasMany(MedicalQuestionnaire::class);
+    }
+
+    /**
+     * 選手-問診票-カルテのリレーション
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function medicalHistoryAndMedicalQuestionnaire() :HasManyThrough
+    {
+        return $this->hasManyThrough(
+            MedicalRecord::class, //孫モデル
+            MedicalQuestionnaire::class, //子モデル
+            'athlete_id',//子テーブルの親ID
+            'medical_questionnaire_id', //孫モデルの子ID
+            'id', //親テーブルのローカルID
+            'id' //子テーブルのローカルID
+        );
     }
 
 

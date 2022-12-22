@@ -5,6 +5,7 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\AthleteController;
 use App\Http\Controllers\User\MedicalHistoryController;
 use App\Http\Controllers\User\MedicalQuestionnaireController;
+use App\Http\Controllers\User\MedicalRecordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,9 +100,9 @@ Route::prefix('medical-history') //URLのプレフィックスとして「/athle
 Route::prefix('medical-questionnaire')
     ->middleware(['auth:users'])
     ->group(function (){
-        //問診票メニューページ表示
-        Route::get('/{athlete_id}', [MedicalQuestionnaireController::class, 'showMedicalQuestionnairePage'])
-            ->name('medical-questionnaire.show.menu');
+        //問診票・カルテメニューページ表示
+        Route::get('/{athlete_id}', [MedicalQuestionnaireController::class, 'medicalQuestionnaireAndRecordMenu'])
+            ->name('medical-questionnaire-record.menu');
 
         //問診票一覧ページ表示
         Route::get('/index', [MedicalQuestionnaireController::class, 'index'])
@@ -130,6 +131,16 @@ Route::prefix('medical-questionnaire')
         //問診票削除
         Route::post('/{medical_questionnaire_id}/destroy', [MedicalQuestionnaireController::class, 'destroy'])
             ->name('medical-questionnaire.destroy');
+    }
+);
+
+//カルテのルーティング
+Route::prefix('medical-record')
+    ->middleware(['auth:athlete'])
+    ->group(function (){
+        //カルテの詳細ページの表示
+        Route::get('{/{athlete_id}/medical_record/show', [MedicalRecordController::class, 'show'])
+            ->name('medical-record.show');
     }
 );
 

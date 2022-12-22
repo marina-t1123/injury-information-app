@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class MedicalQuestionnaire extends Model
 {
@@ -39,6 +40,16 @@ class MedicalQuestionnaire extends Model
     public function athlete() : BelongsTo
     {
         return $this->belongsTo(Athlete::class);
+    }
+
+    /**
+     * 問診票に紐ずくカルテのリレーション
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function medicalRecord() : HasOne
+    {
+        return $this->hasOne(MedicalRecord::class);
     }
 
 }
