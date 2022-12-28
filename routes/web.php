@@ -100,9 +100,9 @@ Route::prefix('medical-history') //URLのプレフィックスとして「/athle
 Route::prefix('medical-questionnaire')
     ->middleware(['auth:users'])
     ->group(function (){
-        //問診票・カルテメニューページ表示
-        Route::get('/{athlete_id}', [MedicalQuestionnaireController::class, 'medicalQuestionnaireAndRecordMenu'])
-            ->name('medical-questionnaire-record.menu');
+        //問診票メニューページ表示
+        Route::get('/{athlete_id}', [MedicalQuestionnaireController::class, 'showMedicalQuestionnairePage'])
+            ->name('medical-questionnaire.show.menu');
 
         //問診票一覧ページ表示
         Route::get('/index', [MedicalQuestionnaireController::class, 'index'])
@@ -136,10 +136,10 @@ Route::prefix('medical-questionnaire')
 
 //カルテのルーティング
 Route::prefix('medical-record')
-    ->middleware(['auth:athlete'])
+    ->middleware(['auth:users'])
     ->group(function (){
         //カルテの詳細ページの表示
-        Route::get('{/{athlete_id}/medical_record/show', [MedicalRecordController::class, 'show'])
+        Route::get('/{medical_questionnaire_id}/show', [MedicalRecordController::class, 'show'])
             ->name('medical-record.show');
     }
 );
