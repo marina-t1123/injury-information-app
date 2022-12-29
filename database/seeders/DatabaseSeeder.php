@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\MedicalQuestionnaire;
+use App\Models\MedicalRecord;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,6 +22,8 @@ class DatabaseSeeder extends Seeder
             AthleteSeeder::class,
             MedicalHistorySeeder::class,
             MedicalQuestionnaireSeeder::class,
+            MedicalRecordSeeder::class,
+            MedicalImageSeeder::class
         ]);
     }
 }

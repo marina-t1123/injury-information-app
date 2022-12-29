@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use \Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use \Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\MedicalQuestionnaire;
 
 class MedicalRecord extends Model
 {
@@ -23,9 +25,6 @@ class MedicalRecord extends Model
         'doctor_findings', //ドクター所見
         'swelling', //診断名
         'future_policies', //今後の方針
-        'image', //画像
-        'image', //画像
-        'image', //画像
         'medical_questionnaire_id', //問診票ID
     ];
 
@@ -34,9 +33,19 @@ class MedicalRecord extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function medicalQuestionnaire() :BelongsTo
+    public function medicalQuestionnaire()
     {
-        $this->belongsTo(MedicalQuestionnaire::class);
+        return $this->belongsTo(MedicalQuestionnaire::class);
+    }
+
+    /**
+     * カルテに紐付いている画像のリレーション
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function medicalImages()
+    {
+        return $this->hasMany(MedicalImage::class);
     }
 
 }

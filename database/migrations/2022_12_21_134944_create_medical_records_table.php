@@ -22,7 +22,6 @@ class CreateMedicalRecordsTable extends Migration
             $table->text('doctor_findings')->nullable(); //ドクター所見
             $table->string('swelling')->nullable(); //診断名
             $table->text('future_policies')->nullable(); //今後の方針
-            $table->string('medical_image')->nullable(); //画像
             $table->foreignId('medical_questionnaire_id') //問診票ID
                 ->constrained()
                 ->onUpdate('cascade')
