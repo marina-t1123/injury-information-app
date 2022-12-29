@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\MedicalHistory;
+use App\Models\MedicalQuestionnaire;
+use App\Models\MedicalRecord;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -65,34 +68,31 @@ class Athlete extends Model
         return $this->HasMany(MedicalHistory::class);
     }
 
-    /**
-     * 選手の問診票のリレーション
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function medicalQuestionnaires() : HasMany
-    {
-        return $this->HasMany(MedicalQuestionnaire::class);
-    }
+    // /**
+    //  * 選手の問診票のリレーション
+    //  *
+    //  * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    //  */
+    // public function medicalQuestionnaires() : HasMany
+    // {
+    //     return $this->HasMany(MedicalQuestionnaire::class);
+    // }
 
-    /**
-     * 選手-問診票-カルテのリレーション
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
-     */
-    public function medicalHistoryAndMedicalQuestionnaire() :HasManyThrough
-    {
-        return $this->hasManyThrough(
-            MedicalRecord::class, //孫モデル
-            MedicalQuestionnaire::class, //子モデル
-            'athlete_id',//子テーブルの親ID
-            'medical_questionnaire_id', //孫モデルの子ID
-            'id', //親テーブルのローカルID
-            'id' //子テーブルのローカルID
-        );
-    }
+    // /**
+    //  * 選手-問診票-カルテのリレーション
+    //  *
+    //  * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+    //  */
+    // public function medicalRecords() :HasManyThrough
+    // {
+    //     return $this->hasManyThrough(
+    //         MedicalRecord::class, //孫モデル(取得先モデル)
+    //         MedicalQuestionnaire::class, //子モデル(中間モデル)
+    //         'athlete_id',//子テーブルの親ID(親モデルと中間モデルを繋ぐ外部キー)
+    //         'medical_questionnaire_id', //孫モデルの子ID(中間モデルと取得先モデルを繋ぐ外部キー)
+    //         'id', //親テーブルのローカルID(親テーブルの主キー)
+    //         'id' //子テーブルのローカルID(中間モデルの主キー)
+    //     );
+    // }
 
-
-
-    // 選手のカルテのリレーション
 }
