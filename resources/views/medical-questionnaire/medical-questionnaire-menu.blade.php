@@ -41,11 +41,14 @@
                                 <p class="text-gray-500">受傷部位：{{ $medicalQuestionnaire->injured_area}}</p>
                             </div>
                             <div class="flex-row mx-auto">
-                                <a href="{{ route('user.medical-questionnaire.show', ['medical_questionnaire_id' => $medicalQuestionnaire->id ])}}" class="text-white bg-gray-800 border-0 py-2 px-8 mt-5 focus:outline-none hover:bg-gray-700 rounded text-sm">
+                                <a href="{{ route('user.medical-questionnaire.show', ['medical_questionnaire_id' => $medicalQuestionnaire->id ]) }}" class="text-white bg-gray-800 border-0 py-2 px-8 mt-5 focus:outline-none hover:bg-gray-700 rounded text-sm">
                                     詳細
                                 </a>
-                                <a href="{{ route('user.medical-questionnaire.edit', ['medical_questionnaire_id' => $medicalQuestionnaire->id ])}}" class="text-white bg-gray-800 border-0 py-2 px-8 mt-5 focus:outline-none hover:bg-gray-700 rounded text-sm">
+                                <a href="{{ route('user.medical-questionnaire.edit', ['medical_questionnaire_id' => $medicalQuestionnaire->id ]) }}" class="text-white bg-gray-800 border-0 py-2 px-8 mt-5 focus:outline-none hover:bg-gray-700 rounded text-sm">
                                     編集
+                                </a>
+                                <a href="{{ route('user.medical-record.show', ['medical_questionnaire_id' => $medicalQuestionnaire->id ]) }}" class="text-white bg-gray-800 border-0 py-2 px-8 mt-5 focus:outline-none hover:bg-gray-700 rounded text-sm">
+                                    カルテ詳細
                                 </a>
                                 <form id="delete_{{ $medicalQuestionnaire->id }}" method="post" action="{{ route('user.medical-questionnaire.destroy', ['medical_questionnaire_id' => $medicalQuestionnaire->id]) }}">
                                     @csrf

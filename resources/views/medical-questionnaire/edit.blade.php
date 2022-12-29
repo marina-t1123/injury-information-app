@@ -125,15 +125,14 @@
                         <div class="p-2 w-3/4 mx-auto">
                             <div class="relative">
                                 <p>現在登録している画像</p>
-                                <x-injury-image :medicalQuestionnaire=$medicalQuestionnaire />
-                                <form >
+                                <x-image :imageFileName="$medicalQuestionnaire->injury_image" type="injury_image" />
                             </div>
                         </div>
                         <!-- 怪我の画像 -->
                         <div class="p-2 w-3/4 mx-auto">
                             <div class="relative">
                                 <label for="injury_image" class="leading-7 text-sm text-gray-600">
-                                    怪我の画像<br>
+                                    画像<br>
                                     ※登録済みの画像を変更しない場合、再度画像ファイルを指定してください。
                                 </label>
                                 <input type="file" accept="image/png,image/jpeg,image/jpg" name="injury_image">

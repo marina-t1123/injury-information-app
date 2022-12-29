@@ -32,7 +32,26 @@ class MedicalRecordEditRequest extends FormRequest
             'doctor_findings' => 'required|text|max:1500',
             'swelling' => 'required|string|max:255',
             'future_policies' => 'required|test|max:1500',
-            'file.*.image' => 'image|mimes:jpg,jpeg,png'
+            'file.*.medical_image' => 'image|mimes:jpg,jpeg,png'
+        ];
+    }
+
+    /**
+     * カルテの属性名の変更
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'hospital_day' => '診察日',
+            'attending_physician' => '担当医',
+            'medical_examination' => '診察内容',
+            'tests' => 'テスト内容',
+            'doctor_findings' => 'ドクター所見',
+            'swelling' => '診断名',
+            'future_policies' =>  '今後の方針'
+            // 'file.*.image' => '画像',
         ];
     }
 }

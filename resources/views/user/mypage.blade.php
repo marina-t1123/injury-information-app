@@ -40,10 +40,7 @@
                                     既往歴
                                 </a>
                                 <a href="{{ route('user.medical-questionnaire.show.menu', ['athlete_id' => $athlete->id ])}}" class="text-white bg-gray-800 border-0 py-2 px-8 mt-5 focus:outline-none hover:bg-gray-700 rounded text-sm">
-                                    問診票
-                                </a>
-                                <a href="" class="text-white bg-gray-800 border-0 py-2 px-8 mt-5 focus:outline-none hover:bg-gray-700 rounded text-sm">
-                                    カルテ
+                                    問診票・カルテ詳細
                                 </a>
                                 <a href="{{ route('user.athlete.show.setting', [ 'athlete_id' => $athlete->id ]) }}" class="text-white bg-gray-800 border-0 py-2 px-8 mt-5 focus:outline-none hover:bg-gray-700 rounded text-sm">
                                     選手設定
