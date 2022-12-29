@@ -13,12 +13,21 @@ class ImageService
      * @param string $folderName
      * @var string $imageFileNewName
      */
-    public static function upload($imageFile, $folderName){
+    public static function upload($imageFile, $folderName)
+    {
+        //画像が複数(配列)である場合
+        if(is_array($imageFile)){
+            //フォームから送信された配列の画像を変数に格納する
+            $file = $imageFile['medical_image'];
+        } else { //画像が１枚の場合
+            //フォームから送信された画像を変数に格納する
+            $file = $imageFile;
+        }
 
         //画像のファイル名を重複しないIDをファイル名に指定して生成する
         $fileName = uniqid(rand().'_');
         //画像ファイルの拡張子を取得する
-        $extension = $imageFile->extension();
+        $extension = $file->extension();
         //画像ファイル名と画像ファイルの拡張子を繋げて、新しく作成した画像ファイル名を変数に格納する
         $imageFileNewName = $fileName.'.'.$extension;
 
@@ -26,7 +35,7 @@ class ImageService
         // 第一引数：storage/appディレクトリ配下に画像を登録するためのディレクトリを指定
         // 第二引数：登録したい画像ファイル(ファイルインスタンス)の指定
         // 第三引数：画像ファイル名を指定(今回は、一意のファイル名を作成して指定)
-        Storage::putFileAs('public/'.$folderName.'/', $imageFile, $imageFileNewName);
+        Storage::putFileAs('public/'.$folderName.'/', $file, $imageFileNewName);
 
         // storageに登録した画像ファイルを返り値として返す
         return $imageFileNewName;
