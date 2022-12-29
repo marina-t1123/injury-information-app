@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AthleteRequest;
 use Illuminate\Http\Request;
 use App\Models\Athlete;
+use App\Models\MedicalImage;
+use App\Services\ImageService;
 use Illuminate\Support\Facades\Session;
 
 class AthleteController extends Controller
@@ -121,8 +123,33 @@ class AthleteController extends Controller
     {
         //まず、削除する選手を取得する。
         $athlete = Athlete::findOrFail($athlete_id);
-
-        //選手に紐ずく既往歴・問診票・カルテを削除。最後に選手アカウントを削除する。
+        //選手に紐ずく既往歴を取得
+        $medicalHistories = $athlete->medicalHistories;
+        //選手に紐ずく既往歴を削除
+        if(!is_null($medicalHistories)){
+            foreach($medicalHistories as $medicalHistory){
+                $medicalHistory->delete();
+            }
+        }
+        //問診票・カルテのStorageディレクトリ配下の画像を削除する
+        $medicalQuestionnaires = $athlete->medicalQuestionnaires;
+        foreach($medicalQuestionnaires as $medicalQuestionnaire){
+            //問診票の画像をStorageディレクトリから削除
+            $injuryImage = $medicalQuestionnaire->value('injury_image');
+            ImageService::destroy($injuryImage, 'injury-image');
+            //問診票に紐ずくカルテを取得する
+            $medicalRecord = $medicalQuestionnaire->medicalRecord;
+            //問診票に紐ずくカルテの画像を取得する
+            $medicalImages = MedicalImage::where('medical_record_id', $medicalRecord->id)->get();
+            //storage>app>public>medical-image配下に登録されているカルテ画像を削除する
+            if(!is_null($medicalImages)){
+                foreach($medicalImages as $medicalImage){
+                    ImageService::destroy($medicalImage->medical_image, 'medical-image');
+                }
+            }
+             //選手に紐ずく問診票を削除(問診票を削除するとカルテも自動的に削除される)
+            $medicalQuestionnaire->delete();
+        }
 
         //選手アカウントを削除
         $athlete->delete();
