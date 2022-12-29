@@ -4,6 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Models\Athlete;
 use App\Models\MedicalQuestionnaire;
+use App\Models\MedicalRecord;
+use App\Models\MedicalImage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MedicalQuestionnaireRequest;
 use App\Services\ImageService;
@@ -73,7 +75,7 @@ class MedicalQuestionnaireController extends Controller
         }
 
         //バリデーション済みの入力値をそれぞれのカラムに指定する
-        MedicalQuestionnaire::create([
+        $createMedicalQuestionnaire = MedicalQuestionnaire::create([
             'injured_day' => $request->injured_day,
             'injured_area' => $request->injured_area,
             'injury_status' => $request->injury_status,
@@ -89,8 +91,13 @@ class MedicalQuestionnaireController extends Controller
             'athlete_id' => $athlete_id,
         ]);
 
+        //問診票に紐付いたカルテも新規作成する
+        MedicalRecord::create([
+            'medical_questionnaire_id' => $createMedicalQuestionnaire->id
+        ]);
+
         // 問診票の新規作成メッセージを作成
-        Session::flash('message', '問診票を登録しました。');
+        Session::flash('message', '問診票とカルテを登録しました。');
 
         // 問診票メニューページのアクションを実行する
         return redirect()->route('user.medical-questionnaire.show.menu', compact('athlete_id'));
@@ -181,16 +188,27 @@ class MedicalQuestionnaireController extends Controller
         return redirect()->route('user.medical-questionnaire.show.menu', ['athlete_id' => $medicalQuestionnaire->athlete->id]);
     }
 
-    //問診票の削除機能
+    //問診票(カルテ)の削除機能
     public function destroy($medical_questionnaire_id)
     {
         //削除する問診票を取得する
         $medicalQuestionnaire = MedicalQuestionnaire::with('athlete')->where('id', $medical_questionnaire_id)->first();
-
-        //storage>app>public>injury-image配下に登録している画像があった場合、削除する
+        //storage>app>public>injury-image配下に登録している問診票の画像があった場合、削除する
         if($medicalQuestionnaire->injury_image)
         {
             ImageService::destroy($medicalQuestionnaire->injury_image, 'injury-image');
+        }
+
+        //問診票に紐ずくカルテを取得する
+        $medicalRecord = $medicalQuestionnaire->medicalRecord;
+        //問診票に紐ずくカルテの画像を取得する
+        $medicalImages = MedicalImage::where('medical_record_id', $medicalRecord->id)
+                            ->get();
+        //storage>app>public>medical-image配下に登録されているカルテ画像を削除する
+        if(!is_null($medicalImages)){
+            foreach($medicalImages as $medicalImage){
+                ImageService::destroy($medicalImage->medical_image, 'medical-image');
+            }
         }
 
         //削除する問診票に紐ずく選手IDを取得
@@ -198,6 +216,9 @@ class MedicalQuestionnaireController extends Controller
 
         //問診票を削除する
         $medicalQuestionnaire->delete();
+
+        //問診票メニュー画面で問診票と紐ずくカルテを削除しましたとううメッセージを表示する
+        Session::flash('message', '問診票と紐づくカルテを削除しました。');
 
         //選手の問診票メニューページへリダイレクトする
         return redirect()->route('user.medical-questionnaire.show.menu', compact('athlete_id'));
