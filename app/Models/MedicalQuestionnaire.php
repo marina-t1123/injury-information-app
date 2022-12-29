@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Models\Athlete;
+use App\Models\MedicalRecord;
 
 class MedicalQuestionnaire extends Model
 {
@@ -47,7 +49,7 @@ class MedicalQuestionnaire extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function medicalRecord() : HasOne
+    public function medicalRecord()
     {
         return $this->hasOne(MedicalRecord::class);
     }
