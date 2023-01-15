@@ -21,9 +21,6 @@ use App\Http\Controllers\User\MedicalRecordController;
 |
 */
 
-// Route::get('/', function() {
-//     return view('top');
-// });
 Route::get('/', function () {
     return view('user.welcome');
 });
