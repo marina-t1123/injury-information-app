@@ -21,15 +21,22 @@ use App\Http\Controllers\User\MedicalRecordController;
 |
 */
 
+// Route::get('/', function() {
+//     return view('top');
+// });
 Route::get('/', function () {
     return view('user.welcome');
 });
 
-//ログイン後の遷移先(マイページ)
+/**
+ * トレーナー側のルーティング
+ */
+
+//マイページ
 Route::get('/mypage', [UserController::class, 'userMyPage'])
     ->middleware(['auth:users'])->name('mypage');
 
-//選手のルーティングにトレーナーユーザーの認証を設定
+//選手ルーティング
 Route::prefix('athlete') //URLのプレフィックスとして「/athlete」
     ->middleware(['auth:users']) //トレーナーの認証(ルート名の先頭にuser.がつく)
     ->group(function (){ //上記の条件を適応させて、選手関連のルート情報をグループ化
@@ -58,7 +65,7 @@ Route::prefix('athlete') //URLのプレフィックスとして「/athlete」
             ->name('athlete.destroy');
 });
 
-//既往歴のルーティング
+//既往歴ルーティング
 Route::prefix('medical-history') //URLのプレフィックスとして「/athlete」
     ->middleware(['auth:users']) //トレーナーの認証(ルート名の先頭にuser.がつく)
     ->group(function (){ //上記の条件を適応させて、選手関連のルート情報をグループ化
