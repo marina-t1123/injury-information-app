@@ -8,6 +8,11 @@ use App\Http\Controllers\Doctor\Auth\NewPasswordController;
 use App\Http\Controllers\Doctor\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Doctor\Auth\RegisteredUserController;
 use App\Http\Controllers\Doctor\Auth\VerifyEmailController;
+use App\Http\Controllers\Doctor\DoctorController;
+use App\Http\Controllers\Doctor\DoctorMedicalHistoryController;
+use App\Http\Controllers\Doctor\DoctorAthleteController;
+use App\Http\Controllers\Doctor\DoctorMedicalRecordController;
+use App\Http\Controllers\Doctor\DoctorMedicalQuestionnaireController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -74,3 +79,71 @@ Route::middleware('auth:doctors')->group(function () {
                 ->name('logout');
 });
 
+/**
+ * ドクター側のルーティング
+ */
+
+//マイページ
+Route::get('/mypage', [DoctorController::class, 'doctorMyPage'])
+    ->middleware(['auth:doctors'])->name('mypage');
+
+//選手ルーティング
+Route::get('/athlete/{athlete_id}/show', [DoctorAthleteController::class, 'show'])
+    ->middleware(['auth:doctors'])
+    ->name('athlete.show');
+
+//既往歴ルーティング
+Route::prefix('medical-history')
+    ->middleware(['auth:doctors'])
+    ->group(function (){
+        //既往歴メニュー画面表示
+        Route::get('/{athlete_id}', [DoctorMedicalHistoryController::class, 'showMedicalHistoryPage'])
+            ->name('medical-history.show.menu');
+
+        //既往歴一覧画面表示
+        Route::get('/index', [DoctorMedicalHistoryController::class, 'index'])
+            ->name('medical-history.index');
+
+        //既往歴詳細ページ
+        Route::get('/{medical_history_id}/show', [DoctorMedicalHistoryController::class, 'show'])
+            ->name('medical-history.show');
+});
+
+//問診票ルーティング
+Route::prefix('medical-questionnaire')
+    ->middleware(['auth:doctors'])
+    ->group(function (){
+        //問診票メニューページ表示
+        Route::get('/{athlete_id}', [DoctorMedicalQuestionnaireController::class, 'showMedicalQuestionnairePage'])
+            ->name('medical-questionnaire.show.menu');
+
+        //問診票一覧ページ表示
+        Route::get('/index', [DoctorMedicalQuestionnaireController::class, 'index'])
+            ->name('medical-questionnaire.index');
+
+        //問診票詳細ページ表示
+        Route::get('/{medical_questionnaire_id}/show', [DoctorMedicalQuestionnaireController::class, 'show'])
+            ->name('medical-questionnaire.show');
+});
+
+//カルテルーティング
+Route::prefix('medical-record')
+    ->middleware(['auth:doctors'])
+    ->group(function (){
+        //カルテ詳細・編集ページ表示
+        Route::get('/{medical_questionnaire_id}/medical_record', [DoctorMedicalRecordController::class, 'showMedicalRecordPage'])
+            ->name('medical-record.show.menu');
+
+        //カルテ編集ページ表示
+        Route::get('/{medical_record_id}/edit', [DoctorMedicalRecordController::class, 'edit'])
+            ->name('medical-record.edit');
+
+        //カルテ編集
+        Route::post('/{medical_record_id}/edit', [DoctorMedicalRecordController::class, 'update'])
+            ->name('medical-record.update');
+
+        //カルテ詳細ページ表示
+        Route::post('/{medical_questionnaire_id}/medical_record/show', [DoctorMedicalRecordController::class, 'show'])
+            ->name('medical-record.show');
+
+});
