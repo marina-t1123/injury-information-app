@@ -76,14 +76,14 @@ class DoctorAttributeController extends Controller
         $targetDoctor = Doctor::getDoctor($id);
 
         //ドクターの名前が編集前と違った場合、更新する
-        if( $targetDoctor->name !== $request->name)
+        if($targetDoctor->name !== $request->name)
         {
             //編集後の名前を登録する
             Doctor::registerDoctorName($id, $request->name);
         }
 
         //ドクター詳細情報を更新する
-        if( !empty($request))
+        if(!empty($request))
         {
             DB::beginTransaction();
             try {
