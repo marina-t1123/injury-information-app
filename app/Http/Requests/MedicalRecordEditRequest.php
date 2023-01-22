@@ -27,12 +27,12 @@ class MedicalRecordEditRequest extends FormRequest
         return [
             'hospital_day' => 'required|date',
             'attending_physician' => 'required|string|max:255',
-            'medical_examination' => 'required|text|max:1500',
-            'tests' => 'text|max:1500',
-            'doctor_findings' => 'required|text|max:1500',
+            'medical_examination' => 'required|string|max:1500',
+            'tests' => 'string|max:1500',
+            'doctor_findings' => 'required|string|max:1500',
             'swelling' => 'required|string|max:255',
-            'future_policies' => 'required|test|max:1500',
-            'file.*.medical_image' => 'image|mimes:jpg,jpeg,png'
+            'future_policies' => 'required|string|max:1500',
+            'files.*.medical_image' => 'image|mimes:jpg,jpeg,png'
         ];
     }
 
@@ -50,8 +50,8 @@ class MedicalRecordEditRequest extends FormRequest
             'tests' => 'テスト内容',
             'doctor_findings' => 'ドクター所見',
             'swelling' => '診断名',
-            'future_policies' =>  '今後の方針'
-            // 'file.*.image' => '画像',
+            'future_policies' =>  '今後の方針',
+            'files.*.medical_image' => '画像',
         ];
     }
 }
