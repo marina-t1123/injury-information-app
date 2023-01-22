@@ -5049,11 +5049,6 @@ __webpack_require__.r(__webpack_exports__);
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"];
 alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].start();
 
-//フラッシュメッセージの自動消去
-window.setTimeout(function () {
-  $('#flash-message').slideUp();
-}, 5000);
-
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
