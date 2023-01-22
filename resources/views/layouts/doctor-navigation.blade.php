@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <div class="w-20">
-                        <a href="{{ route('doctor.dashboard') }}">
+                        <a href="{{ route('doctor.mypage') }}">
                             <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
                         </a>
                     </div>
@@ -14,8 +14,11 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('doctor.dashboard')" :active="request()->routeIs('doctor.dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link :href="route('doctor.mypage')" :active="request()->routeIs('doctor.mypage')">
+                        <p>マイページ</p>
+                    </x-nav-link>
+                    <x-nav-link :href="route('doctor.users.index')" :active="request()->routeIs('doctor.users.index')">
+                        <p>トレーナー一覧</p>
                     </x-nav-link>
                 </div>
             </div>
@@ -36,6 +39,10 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link :href="route('user.register')">トレーナー新規登録</x-dropdown-link>
+                        <x-dropdown-link :href="route('user.login')">トレーナーログイン</x-dropdown-link>
+                        <x-dropdown-link :href="route('doctor.doctor-attribute.menu', ['id' => Auth::user()->id ])">ユーザー詳細設定</x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('doctor.logout') }}">
                             @csrf
@@ -43,7 +50,7 @@
                             <x-dropdown-link :href="route('doctor.logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                <p>ログアウト</p>
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -65,9 +72,23 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('doctor.dashboard')" :active="request()->routeIs('doctor.dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('doctor.mypage')" :active="request()->routeIs('doctor.mypage')">
+                    <p>マイページ</p>
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('doctor.users.index')" :active="request()->routeIs('doctor.users.index')">
+                    <p>トレーナー一覧</p>
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('doctor.doctor-attribute.menu', ['id' => Auth::user()->id ])" :active="request()->routeIs('doctor.doctor-attribute.menu')">
+                    <p>ユーザー詳細設定</p>
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('user.register')" :active="request()->routeIs('user.register')">
+                    <p>トレーナー新規登録</p>
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('user.login')" :active="request()->routeIs('user.login')">
+                    <p>トレーナーログイン</p>
+                </x-responsive-nav-link>
+            </div>
         </div>
 
         <!-- Responsive Settings Options -->
@@ -85,7 +106,7 @@
                     <x-responsive-nav-link :href="route('doctor.logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        <p>ログアウト</p>
                     </x-responsive-nav-link>
                 </form>
             </div>
