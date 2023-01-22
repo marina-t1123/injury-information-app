@@ -36,13 +36,13 @@ class MedicalImageSeeder extends Seeder
             ],
             [
                 'medical_record_id' => '3',
-                'medical_image' => 'test_image3.jpeg',
+                'medical_image' => 'test_image7.png',
                 'created_at' => new Carbon('2022-06-03'),
                 'updated_at' => new Carbon('2022-06-03')
             ],
             [
                 'medical_record_id' => '3',
-                'medical_image' => 'test_image1.jpeg',
+                'medical_image' => 'test_image8.png',
                 'created_at' => new Carbon('2022-06-03'),
                 'updated_at' => new Carbon('2022-06-03')
             ],
