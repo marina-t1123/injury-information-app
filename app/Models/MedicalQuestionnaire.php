@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Athlete;
 use App\Models\MedicalRecord;
+use Carbon\Carbon;
 
 class MedicalQuestionnaire extends Model
 {
@@ -31,6 +32,8 @@ class MedicalQuestionnaire extends Model
         'trainer_findings', //トレーナー所見
         'future_plans', //今後の予定
         'injury_image', //怪我の画像
+        'hospital_day', //診察日
+        'attending_physician', //担当医
         'athlete_id', //選手ID
     ];
 
@@ -54,4 +57,30 @@ class MedicalQuestionnaire extends Model
         return $this->hasOne(MedicalRecord::class);
     }
 
+    /**
+     * 今日受診する選手の問診票をカルテと一緒に取得する
+     *
+     * @param \Illuminate\Database\Eloquent\Collection||null $todayMedicalQuestionnaires
+     */
+    public static function getTodayMedicalQuestionnaires()
+    {
+        return self::where('hospital_day', Carbon::today())
+                ->leftJoin('athletes', 'medical_questionnaires.athlete_id', '=', 'athletes.id')
+                ->with('medicalRecord')
+                ->paginate(1);
+    }
+
+
+    /**
+     * 指定された問診票IDを持つ問診票と選手情報を取得する
+     *
+     * @param int $medicalQuestionnaireId
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public static function getMedicalQuestionnaireAndAthlete($medicalQuestionnaireId)
+    {
+        return self::where('id' , $medicalQuestionnaireId)
+                ->with('athlete')
+                ->first();
+    }
 }
