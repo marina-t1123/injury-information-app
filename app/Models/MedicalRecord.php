@@ -48,4 +48,25 @@ class MedicalRecord extends Model
         return $this->hasMany(MedicalImage::class);
     }
 
+    /**
+     * 指定されたカルテIDに紐ずく問診票を取得
+     *
+     * @param int $medicalQuestionnaireId
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public static function getMedicalRecordAndMedicalQuestionnaire($medicalQuestionnaireId)
+    {
+        return self::where('medical_questionnaire_id', $medicalQuestionnaireId)->first();
+    }
+
+    /**
+     * カルテに紐ずく画像を取得
+     *
+     *
+     */
+    public static function getMedicalImage($medicalRecordId)
+    {
+        return self::findOrFail($medicalRecordId)->medicalImages->get();
+    }
+
 }
