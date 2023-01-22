@@ -58,4 +58,28 @@ class MedicalHistory extends Model
         return $this->belongsTo(Athlete::class);
     }
 
+    /**
+     * 指定されたIDを持つ既往歴を取得する
+     *
+     * @param int $medicalHistoryId
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public static function getMedicalHistory($medicalHistoryId)
+    {
+        return self::findOrFail($medicalHistoryId);
+    }
+
+    /**
+     * 指定された既往歴IDを持つ既往歴と紐ずく選手情報を取得する
+     *
+     * @param int $medicalHistoryId
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public static function getMedicalHistoryAndAthleteData($medicalHistoryId)
+    {
+        return self::where('id', $medicalHistoryId)
+                ->with('athlete')
+                ->first();
+    }
+
 }
