@@ -9,14 +9,12 @@ use App\Models\MedicalImage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MedicalQuestionnaireRequest;
 use App\Services\ImageService;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class MedicalQuestionnaireController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:users');
-    }
     /**
      * 各選手の問診票メニュー画面の表示
      *
@@ -27,13 +25,10 @@ class MedicalQuestionnaireController extends Controller
     public function showMedicalQuestionnairePage($athlete_id)
     {
         //選手情報を取得する
-        $athlete = Athlete::findOrFail($athlete_id);
+        $athlete = Athlete::getAthlete($athlete_id);
         //選手に紐ずく問診票を取得する
         // $medicalQuestionnaires = $athlete->with('medicalQuestionnaires')->paginate(4);
-        $medicalQuestionnaires = Athlete::findOrFail($athlete_id)
-            ->medicalQuestionnaires()
-            ->paginate(4);
-
+        $medicalQuestionnaires = Athlete::getAthleteAndMedicalQuestionnaires($athlete_id)->paginate(2);
         //問診票メニューページにリダイレクトする
         return view('medical-questionnaire.medical-questionnaire-menu', compact('athlete', 'medicalQuestionnaires'));
     }
@@ -47,7 +42,7 @@ class MedicalQuestionnaireController extends Controller
     public function create($athlete_id)
     {
         //選手情報を取得
-        $athlete = Athlete::findOrFail($athlete_id);
+        $athlete = Athlete::getAthlete($athlete_id);
         //問診票の新規作成画面にリダイレクトする
         return view('medical-questionnaire.create', compact('athlete'));
     }
@@ -74,27 +69,42 @@ class MedicalQuestionnaireController extends Controller
             $injuryImageFileName = null;
         }
 
-        //バリデーション済みの入力値をそれぞれのカラムに指定する
-        $createMedicalQuestionnaire = MedicalQuestionnaire::create([
-            'injured_day' => $request->injured_day,
-            'injured_area' => $request->injured_area,
-            'injury_status' => $request->injury_status,
-            'claim' => $request->claim,
-            'pain' => $request->pain,
-            'swelling' => $request->swelling,
-            'first_aid' => $request->first_aid,
-            'orthopedic_test' => $request->orthopedic_test,
-            'muscle_strength_test' => $request->muscle_strength_test,
-            'trainer_findings' => $request->trainer_findings,
-            'future_plans' => $request->future_plans,
-            'injury_image' => $injuryImageFileName,
-            'athlete_id' => $athlete_id,
-        ]);
+        //問診票とカルテを新規作成する
+        DB::beginTransaction();
+        try {
+            $createMedicalQuestionnaire = MedicalQuestionnaire::create([
+                'injured_day' => $request->injured_day,
+                'injured_area' => $request->injured_area,
+                'injury_status' => $request->injury_status,
+                'claim' => $request->claim,
+                'pain' => $request->pain,
+                'swelling' => $request->swelling,
+                'first_aid' => $request->first_aid,
+                'orthopedic_test' => $request->orthopedic_test,
+                'muscle_strength_test' => $request->muscle_strength_test,
+                'trainer_findings' => $request->trainer_findings,
+                'future_plans' => $request->future_plans,
+                'injury_image' => $injuryImageFileName,
+                'hospital_day' => $request->hospital_day,
+                'attending_physician' => $request->attending_physician,
+                'athlete_id' => $athlete_id,
+            ]);
 
-        //問診票に紐付いたカルテも新規作成する
-        MedicalRecord::create([
-            'medical_questionnaire_id' => $createMedicalQuestionnaire->id
-        ]);
+            //問診票に紐付いたカルテも新規作成する
+            MedicalRecord::create([
+                'hospital_day' => $request->hospital_day,
+                'attending_physician' => $request->attending_physician,
+                'medical_questionnaire_id' => $createMedicalQuestionnaire->id
+            ]);
+
+            DB::commit();
+        } catch (\Throwable $e) {
+            // 全てのエラー・例外をキャッチしてログに残す
+            Log::error($e);
+            //フロントにエラーを通知するので、例外を投げる
+            throw $e;
+            DB::rollBack();
+        }
 
         // 問診票の新規作成メッセージを作成
         Session::flash('message', '問診票とカルテを登録しました。');
@@ -118,7 +128,6 @@ class MedicalQuestionnaireController extends Controller
         return view('medical-questionnaire.show', compact('medicalQuestionnaire'));
     }
 
-    //問診票の編集画面の表示
     /**
      * 問診票の編集画面の表示
      *
@@ -128,9 +137,7 @@ class MedicalQuestionnaireController extends Controller
     public function edit($medical_questionnaire_id)
     {
         //編集を行う問診票を選手情報と一緒に取得
-        $medicalQuestionnaire = MedicalQuestionnaire::with('athlete')
-                                    ->where('id' , $medical_questionnaire_id)
-                                    ->first();
+        $medicalQuestionnaire = MedicalQuestionnaire::getMedicalQuestionnaireAndAthlete($medical_questionnaire_id);
 
         //問診票編集ページへリダイレクト
         return view('medical-questionnaire.edit', compact('medicalQuestionnaire'));
@@ -139,10 +146,8 @@ class MedicalQuestionnaireController extends Controller
     //問診票の編集機能
     public function update(MedicalQuestionnaireRequest $request, $medical_questionnaire_id)
     {
-        //編集する問診票を取得する
-        $medicalQuestionnaire = MedicalQuestionnaire::with('athlete')
-                                    ->where('id', $medical_questionnaire_id)
-                                    ->first();
+        //編集する問診票と選手情報を取得する
+        $medicalQuestionnaire = MedicalQuestionnaire::getMedicalQuestionnaireAndAthlete($medical_questionnaire_id);
 
         //変更前の登録済みの画像ファイルを取得
         $registerInjuryImageFile = $medicalQuestionnaire->injury_image;
@@ -159,27 +164,45 @@ class MedicalQuestionnaireController extends Controller
         } elseif(!empty($validateInjuryImageFile && empty($registerInjuryImageFile))){ //POST送信されたバリデーション済みの画像のみがある場合
             //POST送信された画像ファイルをStorageに登録する
             $updateInjuryImageFileName = ImageService::upload($validateInjuryImageFile, 'injury-image');
-        } else { //フォームから画像が送信されていないかつ、登録済みの画像もない場合
+        } elseif(empty($validateInjuryImageFile && empty($registerInjuryImageFile))) { //フォームから画像が送信されていないかつ、登録済みの画像もない場合
             //nullを格納する
             $updateInjuryImageFileName = null;
         }
 
-        //編集フォームから送信された値を格納する
-        $medicalQuestionnaire->injured_day = $request->injured_day;
-        $medicalQuestionnaire->injured_area = $request->injured_area;
-        $medicalQuestionnaire->injury_status = $request->injury_status;
-        $medicalQuestionnaire->claim = $request->claim;
-        $medicalQuestionnaire->pain = $request->pain;
-        $medicalQuestionnaire->swelling = $request->swelling;
-        $medicalQuestionnaire->first_aid = $request->first_aid;
-        $medicalQuestionnaire->orthopedic_test = $request->orthopedic_test;
-        $medicalQuestionnaire->muscle_strength_test = $request->muscle_strength_test;
-        $medicalQuestionnaire->trainer_findings = $request->trainer_findings;
-        $medicalQuestionnaire->future_plans = $request->future_plans;
-        $medicalQuestionnaire->injury_image = $updateInjuryImageFileName;
-
-        //編集内容を登録する
-        $medicalQuestionnaire->save();
+        //問診票を更新する
+        if(!empty($request))
+        {
+            DB::beginTransaction();
+            try {
+                //編集する詳細データを設定
+                $updateMedicalQuestionnaireData = [
+                    //編集フォームから送信された値を格納する
+                    'injured_day' => $request->injured_day,
+                    'injured_area' => $request->injured_area,
+                    'injury_status' => $request->injury_status,
+                    'claim' => $request->claim,
+                    'pain' => $request->pain,
+                    'swelling' => $request->swelling,
+                    'first_aid' => $request->first_aid,
+                    'orthopedic_test' => $request->orthopedic_test,
+                    'muscle_strength_test' => $request->muscle_strength_test,
+                    'trainer_findings' => $request->trainer_findings,
+                    'future_plans' => $request->future_plans,
+                    'injury_image' => $updateInjuryImageFileName,
+                    'hospital_day' => $request->hospital_day,
+                    'attending_physician' => $request->attending_physician
+                ];
+                //詳細データを更新する
+                $medicalQuestionnaire->update($updateMedicalQuestionnaireData);
+                DB::commit();
+            } catch (\Throwable $e) {
+                // 全てのエラー・例外をキャッチしてログに残す
+                Log::error($e);
+                //フロントにエラーを通知するので、例外を投げる
+                throw $e;
+                DB::rollBack();
+            }
+        }
 
         //編集成功のメッセージを作成する
         Session::flash('message', '問診票の編集をしました。');
@@ -192,9 +215,10 @@ class MedicalQuestionnaireController extends Controller
     public function destroy($medical_questionnaire_id)
     {
         //削除する問診票を取得する
-        $medicalQuestionnaire = MedicalQuestionnaire::with('athlete')->where('id', $medical_questionnaire_id)->first();
+        $medicalQuestionnaire = MedicalQuestionnaire::getMedicalQuestionnaireAndAthlete($medical_questionnaire_id);
+
         //storage>app>public>injury-image配下に登録している問診票の画像があった場合、削除する
-        if($medicalQuestionnaire->injury_image)
+        if(!is_null($medicalQuestionnaire->injury_image))
         {
             ImageService::destroy($medicalQuestionnaire->injury_image, 'injury-image');
         }
@@ -202,9 +226,9 @@ class MedicalQuestionnaireController extends Controller
         //問診票に紐ずくカルテを取得する
         $medicalRecord = $medicalQuestionnaire->medicalRecord;
         //問診票に紐ずくカルテの画像を取得する
-        $medicalImages = MedicalImage::where('medical_record_id', $medicalRecord->id)
-                            ->get();
-        //storage>app>public>medical-image配下に登録されているカルテ画像を削除する
+        $medicalImages = MedicalImage::getMedicalImageAndMedicalRecord($medicalRecord->id);
+
+        //storage>app>public>medical-image配下に登録されているカルテ画像があった場合、削除する
         if(!is_null($medicalImages)){
             foreach($medicalImages as $medicalImage){
                 ImageService::destroy($medicalImage->medical_image, 'medical-image');
