@@ -18,7 +18,7 @@ class MedicalRecordSeeder extends Seeder
         //選手ID1~4までのカルテを作成する
         DB::table('medical_records')->insert([
             [
-                'hospital_day' => new Carbon('2022-06-03'),
+                'hospital_day' => Carbon::today(),
                 'attending_physician' => '高橋 和樹',
                 'medical_examination' => '問診票の画像より腫脹が強くなっている。損傷部位の影響で関節可動域の制限あり。外側靭帯部分に圧痛や腫脹。特に前距腓靭帯の痛みが強い。三角靭帯部分にも圧痛あり。',
                 'tests' => '腫脹が強いため、なし。',
@@ -26,11 +26,11 @@ class MedicalRecordSeeder extends Seeder
                 'swelling' => '足関節内反捻挫Ⅱ度損傷',
                 'future_policies' => 'まずは腫脹のケアとしてアイシングや超音波などをメディカルリハをPTと行う。腫脹が落ち着いてから、機能改善のリハビリを行う。',
                 'medical_Questionnaire_id' => '1',
-                'created_at' => new Carbon('2022-06-03'),
-                'updated_at' => new Carbon('2022-06-03')
+                'created_at' => new Carbon('2022-06-01'),
+                'updated_at' => new Carbon('2022-06-01')
             ],
             [
-                'hospital_day' => new Carbon('2022-08-18'),
+                'hospital_day' => Carbon::today(),
                 'attending_physician' => '山中 隆弘',
                 'medical_examination' => '問診票の画像より腫脹が強くなっている。損傷部位の影響で関節可動域の制限あり。外側靭帯部分に圧痛や腫脹。特に前距腓靭帯の痛みが強い。三角靭帯部分にも圧痛あり。',
                 'tests' => '腫脹が強いため、なし。',
@@ -38,11 +38,11 @@ class MedicalRecordSeeder extends Seeder
                 'swelling' => '足関節内反捻挫Ⅲ度損傷',
                 'future_policies' => 'まずは腫脹のケアとしてアイシングや超音波などをメディカルリハをPTと行う。腫脹が落ち着いてから、機能改善のリハビリを行う。',
                 'medical_Questionnaire_id' => '2',
-                'created_at' => new Carbon('2022-08-18'),
-                'updated_at' => new Carbon('2022-08-18'),
+                'created_at' => new Carbon('2022-08-15'),
+                'updated_at' => new Carbon('2022-08-15'),
             ],
             [
-                'hospital_day' => new Carbon('2022-10-01'),
+                'hospital_day' => new Carbon('2022-10-11'),
                 'attending_physician' => '田中 幸助',
                 'medical_examination' => '問診票の画像より腫脹が強くなっている。損傷部位の影響で関節可動域の制限あり。内側靭帯部分に疼痛や腫脹。特に前斜走靭帯の疼痛が強い。',
                 'tests' => '腫脹が強いため、なし。',
@@ -54,7 +54,7 @@ class MedicalRecordSeeder extends Seeder
                 'updated_at' => new Carbon('2022-10-01'),
             ],
             [
-                'hospital_day' => new Carbon('2022-11-03'),
+                'hospital_day' => new Carbon('2022-11-12'),
                 'attending_physician' => '山中 隆弘',
                 'medical_examination' => '問診票の画像より腫脹が強くなっている。損傷部位の影響で関節可動域の制限あり。外側靭帯部分に圧痛や腫脹。特に前距腓靭帯の痛みが強い。三角靭帯部分にも圧痛あり。',
                 'tests' => '腫脹が強いため、なし。',
@@ -62,8 +62,8 @@ class MedicalRecordSeeder extends Seeder
                 'swelling' => '足関節内反捻挫Ⅱ度損傷',
                 'future_policies' => 'まずは腫脹のケアとしてアイシングや超音波などをメディカルリハをPTと行う。腫脹が落ち着いてから、機能改善のリハビリを行う。',
                 'medical_Questionnaire_id' => '4',
-                'created_at' => new Carbon('2022-11-03'),
-                'updated_at' => new Carbon('2022-11-03'),
+                'created_at' => new Carbon('2022-10-27'),
+                'updated_at' => new Carbon('2022-10-27'),
             ],
         ]);
     }
