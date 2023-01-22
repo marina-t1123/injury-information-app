@@ -25,11 +25,19 @@
                 </div>
             </div>
             <!-- 既往歴メニュー -->
-            <div class="mx-auto my-4 text-center">
-                <a href="{{ route('user.medical-history.show.menu', ['athlete_id' => $medicalHistory->athlete_id ]) }}" class="text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-300 rounded text-sm">
-                    {{ $medicalHistory->athlete->name }}さんの既往歴ページ
-                </a>
-            </div>
-            </div>
+            @if (request()->is('doctor*'))
+                <div class="mx-auto my-4 text-center">
+                    <a href="{{ route('doctor.medical-history.show.menu', ['athlete_id' => $medicalHistory->athlete_id ]) }}" class="text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-300 rounded text-sm">
+                        {{ $medicalHistory->athlete->name }}さんの既往歴ページ
+                    </a>
+                </div>
+            @else
+                <div class="mx-auto my-4 text-center">
+                    <a href="{{ route('user.medical-history.show.menu', ['athlete_id' => $medicalHistory->athlete_id ]) }}" class="text-white bg-gray-500 border-0 py-2 px-8 focus:outline-none hover:bg-gray-300 rounded text-sm">
+                        {{ $medicalHistory->athlete->name }}さんの既往歴ページ
+                    </a>
+                </div>
+            @endif
+        </div>
     </section>
 </x-app-layout>
