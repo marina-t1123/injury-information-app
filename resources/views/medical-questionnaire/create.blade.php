@@ -35,7 +35,7 @@
                             <label for="injured_area" class="leading-7 text-sm text-gray-600">
                                 受傷部位
                             </label>
-                            <input type="string" id="injured_area" name="injured_area" value="{{ old('injured_area') }}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <input type="text" id="injured_area" name="injured_area" value="{{ old('injured_area') }}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                             </div>
                         </div>
                         <!-- 受傷状況 -->
@@ -128,6 +128,24 @@
                                     怪我の画像
                                 </label>
                                 <input type="file" accept="image/png,image/jpeg,image/jpg" name="injury_image">
+                            </div>
+                        </div>
+                        <!-- 診察日 -->
+                        <div class="p-2 w-3/4 mx-auto">
+                            <div class="relative">
+                                <label for="hospital_day" class="leading-7 text-sm text-gray-600">
+                                    診察日
+                                </label>
+                                <input type="date" id="hospital_day" name="hospital_day" value="{{ old('hospital_day') }}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            </div>
+                        </div>
+                        <!-- 担当医 -->
+                        <div class="p-2 w-3/4 mx-auto">
+                            <div class="relative">
+                                <label for="attending_physician" class="leading-7 text-sm text-gray-600">
+                                    担当医
+                                </label>
+                                <input type="text" id="attending_physician" name="attending_physician" value="{{ old('attending_physician') }}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                             </div>
                         </div>
                         <!-- ボタン -->
