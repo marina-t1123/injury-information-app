@@ -19,7 +19,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     //各ユーザーのログイン後のリダイレクト先
     public const HOME = '/mypage';
-    public const DOCTOR_HOME = '/doctor/dashboard';
+    public const DOCTOR_HOME = '/doctor/mypage';
 
     /**
      * The controller namespace for the application.
