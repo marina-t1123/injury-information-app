@@ -44,7 +44,7 @@
                             <label for="phone_number" class="leading-7 text-sm text-gray-600">
                                 電話番号
                             </label>
-                            <input type="string" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" placeholder="00-0000-0000 or 000-0000-0000" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <input type="tel" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" placeholder="00-0000-0000 or 000-0000-0000" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                             </div>
                         </div>
                         <!-- 所属 -->
