@@ -23,14 +23,14 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            @if(Auth('users')->user())
-                @include('layouts.user-navigation')
-            @elseif(Auth('doctors')->user())
+            @if(request()->is('doctor*'))
                 @include('layouts.doctor-navigation')
+            @else
+                @include('layouts.user-navigation')
             @endif
 
             <!-- Page Heading -->
-            <header class="bg-white shadow">
+            <header class="bg-white shadow flex-1">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
@@ -42,8 +42,8 @@
             </main>
 
             <!-- footer -->
-            <footer class="text-gray-600 body-font">
-                <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
+            <footer class="text-gray-600 bottom-0 mt-5">
+                <div class="container px-5 mx-auto flex items-center sm:flex-row flex-col">
                     <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
                         <font style="vertical-align: inherit;">
                         <font style="vertical-align: inherit;">© 2022 Injury Information </font>
@@ -62,7 +62,7 @@
                         </a>
                     </span>
                 </div>
-              </footer>
+            </footer>
         </div>
     </body>
 </html>
