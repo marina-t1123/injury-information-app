@@ -40,8 +40,6 @@ class Athlete extends Model
     public function scopeSearchAthlete($query, $search)
     //クエリのローカルスコープを作成する際はscopeをプレフィックスとしてつける。
     {
-        // dd($search);
-
         //もし、検索フォームで入力があった場合
         if($search){
             //全角スペースが入力されていたら半角スペースに変換する
@@ -68,31 +66,49 @@ class Athlete extends Model
         return $this->HasMany(MedicalHistory::class);
     }
 
-    // /**
-    //  * 選手の問診票のリレーション
-    //  *
-    //  * @return \Illuminate\Database\Eloquent\Relations\HasMany
-    //  */
-    // public function medicalQuestionnaires() : HasMany
-    // {
-    //     return $this->HasMany(MedicalQuestionnaire::class);
-    // }
+    /**
+     * 選手の問診票のリレーション
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function medicalQuestionnaires() : HasMany
+    {
+        return $this->HasMany(MedicalQuestionnaire::class);
+    }
 
-    // /**
-    //  * 選手-問診票-カルテのリレーション
-    //  *
-    //  * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
-    //  */
-    // public function medicalRecords() :HasManyThrough
-    // {
-    //     return $this->hasManyThrough(
-    //         MedicalRecord::class, //孫モデル(取得先モデル)
-    //         MedicalQuestionnaire::class, //子モデル(中間モデル)
-    //         'athlete_id',//子テーブルの親ID(親モデルと中間モデルを繋ぐ外部キー)
-    //         'medical_questionnaire_id', //孫モデルの子ID(中間モデルと取得先モデルを繋ぐ外部キー)
-    //         'id', //親テーブルのローカルID(親テーブルの主キー)
-    //         'id' //子テーブルのローカルID(中間モデルの主キー)
-    //     );
-    // }
+    /**
+     * 指定されたIDを持つ選手を取得する
+     *
+     * @param int $athleteId
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public static function getAthlete($athleteId)
+    {
+        return self::findOrFail($athleteId);
+    }
+
+    /**
+     * 指定された選手IDを持つ選手に紐ずく既往歴のリレーション
+     *
+     * @param int $athleteId
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public static function getAthleteAndMedicalHistory($athleteId)
+    {
+        return self::getAthlete($athleteId)
+                ->medicalHistories();
+    }
+
+    /**
+     * 指定された選手IDを持つ選手に紐ずく問診票のリレーション
+     *
+     * @param int $athleteId
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public static function getAthleteAndMedicalQuestionnaires($athleteId)
+    {
+        return self::getAthlete($athleteId)
+                ->medicalQuestionnaires();
+    }
 
 }
