@@ -23,28 +23,28 @@
                         <!-- 受傷日 -->
                         <div class="p-2 w-3/4 mx-auto">
                             <div class="relative">
-                            <label for="injured_day" class="leading-7 text-sm text-gray-600">
-                                受傷日
-                            </label>
-                            <input type="date" id="injured_day" name="injured_day" value="{{ $medicalQuestionnaire->injured_day }}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                <label for="injured_day" class="leading-7 text-sm text-gray-600">
+                                    受傷日
+                                </label>
+                                <input type="date" id="injured_day" name="injured_day" value="{{ $medicalQuestionnaire->injured_day }}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                             </div>
                         </div>
                         <!-- 受傷部位 -->
                         <div class="p-2 w-3/4 mx-auto">
                             <div class="relative">
-                            <label for="injured_area" class="leading-7 text-sm text-gray-600">
-                                受傷部位
-                            </label>
-                            <input type="string" id="injured_area" name="injured_area" value="{{ $medicalQuestionnaire->injured_area }}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                <label for="injured_area" class="leading-7 text-sm text-gray-600">
+                                    受傷部位
+                                </label>
+                                <input type="text" id="injured_area" name="injured_area" value="{{ $medicalQuestionnaire->injured_area }}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                             </div>
                         </div>
                         <!-- 受傷状況 -->
                         <div class="p-2 w-3/4 mx-auto">
                             <div class="relative">
-                            <label for="injury_status" class="leading-7 text-sm text-gray-600">
-                                受傷状況
-                            </label>
-                            <textarea id="injury_status" name="injury_status" cols='10' class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">{{ $medicalQuestionnaire->injury_status }}</textarea>
+                                <label for="injury_status" class="leading-7 text-sm text-gray-600">
+                                    受傷状況
+                                </label>
+                                <textarea id="injury_status" name="injury_status" cols='10' class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">{{ $medicalQuestionnaire->injury_status }}</textarea>
                             </div>
                         </div>
                         <!-- 腫脹 -->
@@ -124,18 +124,35 @@
                         <!-- 登録済みの怪我の画像 -->
                         <div class="p-2 w-3/4 mx-auto">
                             <div class="relative">
-                                <p>現在登録している画像</p>
+                                <p class="text-sm mb-4">現在登録している画像</p>
                                 <x-image :imageFileName="$medicalQuestionnaire->injury_image" type="injury_image" />
                             </div>
                         </div>
                         <!-- 怪我の画像 -->
-                        <div class="p-2 w-3/4 mx-auto">
+                        <div class="p-2 w-3/4 mx-auto mt-4">
                             <div class="relative">
                                 <label for="injury_image" class="leading-7 text-sm text-gray-600">
-                                    画像<br>
-                                    ※登録済みの画像を変更しない場合、再度画像ファイルを指定してください。
+                                    画像
                                 </label>
                                 <input type="file" accept="image/png,image/jpeg,image/jpg" name="injury_image">
+                            </div>
+                        </div>
+                        <!-- 診察日 -->
+                        <div class="p-2 w-3/4 mx-auto">
+                            <div class="relative">
+                                <label for="hospital_day" class="leading-7 text-sm text-gray-600">
+                                    診察日
+                                </label>
+                                <input type="date" id="hospital_day" name="hospital_day" value="{{ $medicalQuestionnaire->hospital_day }}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            </div>
+                        </div>
+                        <!-- 担当医 -->
+                        <div class="p-2 w-3/4 mx-auto">
+                            <div class="relative">
+                                <label for="attending_physician" class="leading-7 text-sm text-gray-600">
+                                    担当医
+                                </label>
+                                <input type="text" id="attending_physician" name="attending_physician" value="{{ $medicalQuestionnaire->attending_physician }}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                             </div>
                         </div>
                         <!-- ボタン -->
@@ -143,8 +160,8 @@
                             <button type="submit" id="button" class="text-white bg-gray-600 border-0 py-2 px-8 focus:outline-none hover:bg-gray-500 rounded text-lg">
                                 送信
                             </button>
-                            <a href="{{ route('user.medical-history.show.menu', ['athlete_id' => $medicalQuestionnaire->athlete->id ]) }}" class="text-center text-white bg-gray-800 border-0 py-2 px-8 mt-5 focus:outline-none hover:bg-gray-700 rounded text-lg">
-                                戻る
+                            <a href="{{ route('user.medical-questionnaire.show.menu', ['athlete_id' => $medicalQuestionnaire->athlete->id ]) }}" class="text-center text-white bg-gray-800 border-0 py-2 px-8 mt-5 focus:outline-none hover:bg-gray-700 rounded text-lg">
+                                問診票・カルテ詳細ページ
                             </a>
                         </div>
                     </div>
