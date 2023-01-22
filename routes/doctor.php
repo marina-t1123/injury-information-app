@@ -13,6 +13,8 @@ use App\Http\Controllers\Doctor\DoctorMedicalHistoryController;
 use App\Http\Controllers\Doctor\DoctorAthleteController;
 use App\Http\Controllers\Doctor\DoctorMedicalRecordController;
 use App\Http\Controllers\Doctor\DoctorMedicalQuestionnaireController;
+use App\Http\Controllers\Doctor\UserIndexController;
+use App\Http\Controllers\Doctor\DoctorAttributeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -86,6 +88,31 @@ Route::middleware('auth:doctors')->group(function () {
 //マイページ
 Route::get('/mypage', [DoctorController::class, 'doctorMyPage'])
     ->middleware(['auth:doctors'])->name('mypage');
+
+//ドクター詳細ルーティング
+Route::prefix('doctor-attribute')
+    ->middleware(['auth:doctors'])
+    ->group(function (){
+        //ドクター詳細メニューページ表示
+        Route::get('/{id}/setting', [DoctorAttributeController::class, 'showDoctorAttributeMenu'])
+            ->name('doctor-attribute.menu');
+        //ドクター詳細作成ページ表示
+        Route::get('/{id}/create', [DoctorAttributeController::class, 'create'])
+        ->name('doctor-attribute.create');
+        //ドクター詳細作成
+        Route::post('/{id}/create', [DoctorAttributeController::class, 'store'])
+        ->name('doctor-attribute.store');
+        //ドクター詳細編集ページ表示
+        Route::get('/{id}/edit', [DoctorAttributeController::class, 'edit'])
+            ->name('doctor-attribute.edit');
+        //ドクター詳細編集
+        Route::post('/{id}/edit', [DoctorAttributeController::class, 'update'])
+            ->name('doctor-attribute.update');
+});
+
+//トレーナー一覧
+Route::get('/user/index', [UserIndexController::class, 'index'])
+    ->middleware(['auth:doctors'])->name('users.index');
 
 //選手ルーティング
 Route::get('/athlete/{athlete_id}/show', [DoctorAthleteController::class, 'show'])

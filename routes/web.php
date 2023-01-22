@@ -6,6 +6,8 @@ use App\Http\Controllers\User\AthleteController;
 use App\Http\Controllers\User\MedicalHistoryController;
 use App\Http\Controllers\User\MedicalQuestionnaireController;
 use App\Http\Controllers\User\MedicalRecordController;
+use App\Http\Controllers\User\UserAttributeController;
+use App\Http\Controllers\User\DoctorIndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +34,31 @@ Route::get('/', function () {
 //マイページ
 Route::get('/mypage', [UserController::class, 'userMyPage'])
     ->middleware(['auth:users'])->name('mypage');
+
+//トレーナー詳細ルーティング
+Route::prefix('trainer-attribute')
+    ->middleware(['auth:users'])
+    ->group(function (){
+        //トレーナー詳細メニューページ表示
+        Route::get('/{id}/setting', [UserAttributeController::class, 'showUserAttributeMenu'])
+            ->name('user-attribute.menu');
+        //トレーナー詳細作成ページ表示
+        Route::get('/{id}/create', [UserAttributeController::class, 'create'])
+        ->name('user-attribute.create');
+        //トレーナー詳細作成
+        Route::post('/{id}/create', [UserAttributeController::class, 'store'])
+        ->name('user-attribute.store');
+        //トレーナー詳細編集ページ表示
+        Route::get('/{id}/edit', [UserAttributeController::class, 'edit'])
+            ->name('user-attribute.edit');
+        //トレーナー詳細編集
+        Route::post('/{id}/edit', [UserAttributeController::class, 'update'])
+            ->name('user-attribute.update');
+});
+
+//ドクター一覧
+Route::get('/user/doctor-index', [DoctorIndexController::class, 'index'])
+    ->middleware(['auth:users'])->name('doctor-index');
 
 //選手ルーティング
 Route::prefix('athlete') //URLのプレフィックスとして「/athlete」
