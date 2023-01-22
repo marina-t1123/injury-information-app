@@ -30,4 +30,15 @@ class MedicalImage extends Model
         return $this->belongsTo(MedicalRecord::class);
     }
 
+    /**
+     * 指定されたカルテIDを持つ画像を取得
+     *
+     * @param int $medicalRecordId
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public static function getMedicalImageAndMedicalRecord($medicalRecordId)
+    {
+        return self::where('medical_record_id', $medicalRecordId)->get();
+    }
+
 }
