@@ -18,13 +18,9 @@ class DoctorMedicalQuestionnaireController extends Controller
     public function showMedicalQuestionnairePage($athlete_id)
     {
         //問診票詳細・カルテメニューページを表示する選手を取得する
-        $athlete = Athlete::findOrFail($athlete_id);
+        $athlete = Athlete::getAthlete($athlete_id);
         //選手に紐ずく問診票を取得する
-        $medicalQuestionnaires = Athlete::findOrFail($athlete_id)
-            ->medicalQuestionnaires()
-            ->paginate(4);
-        // ddd($medicalQuestionnaires);
-        //問診票がなかった場合、メッセージを表示する為に
+        $medicalQuestionnaires = Athlete::getAthleteAndMedicalQuestionnaires($athlete_id)->paginate(2);
 
         //問診票詳細・カルテメニューページにリダイレクトする
         return view('medical-questionnaire.medical-questionnaire-menu', compact('athlete', 'medicalQuestionnaires'));
