@@ -35,7 +35,7 @@
                             <label for="injured_area" class="leading-7 text-sm text-gray-600">
                                 受傷部位
                             </label>
-                            <input type="string" id="injured_area" name="injured_area" value="{{ $medicalHistory->injured_area }}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                            <input type="text" id="injured_area" name="injured_area" value="{{ $medicalHistory->injured_area }}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                             </div>
                         </div>
                         <!-- 受傷状況 -->
