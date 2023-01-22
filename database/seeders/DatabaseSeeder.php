@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\MedicalQuestionnaire;
-use App\Models\MedicalRecord;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,7 +16,9 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call([
             UserSeeder::class,
+            UserAttributeSeeder::class,
             DoctorSeeder::class,
+            DoctorAttributeSeeder::class,
             AthleteSeeder::class,
             MedicalHistorySeeder::class,
             MedicalQuestionnaireSeeder::class,
