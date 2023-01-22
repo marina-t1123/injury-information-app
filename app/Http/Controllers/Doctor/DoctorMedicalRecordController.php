@@ -9,8 +9,9 @@ use App\Models\MedicalQuestionnaire;
 use App\Models\MedicalRecord;
 use App\Models\MedicalImage;
 use App\Services\ImageService;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Http\Request;
 
 class DoctorMedicalRecordController extends Controller
 {
@@ -27,11 +28,10 @@ class DoctorMedicalRecordController extends Controller
         $medicalRecord = MedicalRecord::where('medical_questionnaire_id', $medical_questionnaire_id)->first();
 
         //カルテに紐ずく画像を取得する(複数ある場合はcollection型)
-        $medicalImages = MedicalImage::where('medical_record_id', $medicalRecord->id)->get();
+        $medicalImages = MedicalImage::getMedicalImageAndMedicalRecord($medicalRecord->id);
 
         //選手IDを取得する
-        $athleteId = MedicalQuestionnaire::findOrFail($medical_questionnaire_id)
-            ->value('athlete_id');
+        $athleteId = $medicalRecord->medicalQuestionnaire()->value('athlete_id');
 
         //選手情報を取得する
         $athlete = Athlete::findOrFail($athleteId);
@@ -47,12 +47,10 @@ class DoctorMedicalRecordController extends Controller
         $medicalRecord = MedicalRecord::findOrFail($medical_record_id);
 
         //カルテに紐ずく画像を取得する(複数ある場合はcollection型)
-        $medicalImages = MedicalImage::where('medical_record_id', $medicalRecord->id)->get();
+        $medicalImages = $medicalRecord->medicalImages()->get();
 
         //選手IDを取得する
-        $medicalQuestionnaire = MedicalQuestionnaire::with('athlete')
-                    ->where('id', $medicalRecord->medical_questionnaire_id)
-                    ->first();
+        $medicalQuestionnaire = MedicalQuestionnaire::getMedicalQuestionnaireAndAthlete($medicalRecord->medical_questionnaire_id);
 
         //カルテ編集画面にリダイレクトする
         return view('medical-record.edit', compact('medicalRecord', 'medicalImages', 'medicalQuestionnaire'));
@@ -66,7 +64,6 @@ class DoctorMedicalRecordController extends Controller
 
         //既にカルテに画像が登録されている場合は、画像ファイル名を取得する
         $registerMedicalImageFiles = $medicalRecord->medicalImages()->get();
-        // ddd($medicalRecord,$registerMedicalImageFiles);
         //バリデーション済みの画像(複数の場合は全て)を取得する
         $validateMedicalImageFiles = $request->file('files');
 
@@ -109,23 +106,38 @@ class DoctorMedicalRecordController extends Controller
             ]);
         }
 
-        //カルテのバリデーション済みの入力値をそれぞれのカラムに指定する
-        $medicalRecord->hospital_day = $request->hospital_day;
-        $medicalRecord->attending_physician = $request->attending_physician;
-        $medicalRecord->medical_examination = $request->medical_examination;
-        $medicalRecord->tests = $request->tests;
-        $medicalRecord->doctor_findings = $request->doctor_findings;
-        $medicalRecord->swelling = $request->swelling;
-        $medicalRecord->future_policies = $request->future_policies;
-
-        //編集内容を保存する
-        $medicalRecord->save();
+        //カルテを更新する
+        if(!empty($request))
+        {
+            DB::beginTransaction();
+            try {
+                //編集するデータを設定
+                $updateMedicalRecordData = [
+                    //編集フォームから送信された値を格納する
+                    'hospital_day' => $request->hospital_day,
+                    'attending_physician' => $request->attending_physician,
+                    'medical_examination' => $request->medical_examination,
+                    'tests' => $request->tests,
+                    'doctor_findings' => $request->doctor_findings,
+                    'swelling' => $request->swelling,
+                    'future_policies' => $request->future_policies
+                ];
+                //更新する
+                $medicalRecord->update($updateMedicalRecordData);
+                DB::commit();
+            } catch (\Throwable $e) {
+                // 全てのエラー・例外をキャッチしてログに残す
+                Log::error($e);
+                //フロントにエラーを通知するので、例外を投げる
+                throw $e;
+                DB::rollBack();
+            }
+        }
 
         //カルテに紐ずく問診票を取得
         $medicalQuestionnaire = $medicalRecord->medicalQuestionnaire()->with('athlete')->first();
-        // ddd($medicalQuestionnaire);
         //カルテの選手情報を取得
-        $athlete = Athlete::findOrFail($medicalQuestionnaire->athlete_id);
+        $athlete = Athlete::getAthlete($medicalQuestionnaire->athlete_id);
         //MedicalImageの画像ファイル名を取得
         $medicalImages = $medicalRecord->medicalImages()->get();
 
