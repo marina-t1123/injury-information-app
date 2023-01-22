@@ -15,7 +15,7 @@ class DoctorAthleteController extends Controller
     //選手詳細画面の表示
     public function show($athlete_id)
     {
-        $athlete = Athlete::findOrFail($athlete_id);
+        $athlete = Athlete::getAthlete($athlete_id);
 
         return view('athlete.show', compact('athlete'));
     }
