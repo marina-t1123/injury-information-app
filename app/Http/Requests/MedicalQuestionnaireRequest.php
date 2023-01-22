@@ -24,7 +24,7 @@ class MedicalQuestionnaireRequest extends FormRequest
     public function rules()
     {
         return [
-            'injured_day' => 'required|date|before:today',
+            'injured_day' => 'required|date|before:tomorrow',
             'injured_area' => 'required|string|max:255',
             'injury_status' => 'required|string|max:1500',
             'claim' => 'required|string|max:1500',
@@ -35,9 +35,9 @@ class MedicalQuestionnaireRequest extends FormRequest
             'muscle_strength_test' => 'string|max:1500',
             'trainer_findings' => 'required|string|max:1500',
             'future_plans' => 'string|max:1500',
-            'injury_image1' => 'file|image|mimes:jpg,png,jpeg',
-            'injury_image2' => 'file|image|mimes:jpg,png,jpeg',
-            'injury_image3' => 'file|image|mimes:jpg,png,jpeg',
+            'injury_image' => 'file|image|mimes:jpg,png,jpeg',
+            'hospital_day' => 'required|date|after:yesterday',
+            'attending_physician' => 'required|string|max:255',
         ];
     }
 
@@ -49,7 +49,8 @@ class MedicalQuestionnaireRequest extends FormRequest
     public function messages()
     {
         return [
-            'injured_day.before' => ':attribute の日付は今日より前の日付を指定してください。',
+            'injured_day.before' => ':attribute の日付は明日より前の日付を指定してください。',
+            'hospital_day.after' => ':attribute の日付は昨日以降の日付を指定してください。'
         ];
     }
 
@@ -72,9 +73,9 @@ class MedicalQuestionnaireRequest extends FormRequest
             'muscle_strength_test' => '筋力テスト',
             'trainer_findings' => 'トレーナー所見',
             'future_plans' => '今後のスケジュール',
-            'injury_image1' => '怪我の画像１',
-            'injury_image2' => '怪我の画像２',
-            'injury_image3' => '怪我の画像３',
+            'injury_image' => '怪我の画像',
+            'hospital_day' => '診察日',
+            'attending_physician' => '担当医',
         ];
     }
 }
