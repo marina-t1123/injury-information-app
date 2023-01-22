@@ -27,6 +27,8 @@ class CreateMedicalQuestionnairesTable extends Migration
             $table->string('trainer_findings');
             $table->string('future_plans');
             $table->string('injury_image')->nullable();
+            $table->date('hospital_day');
+            $table->string('attending_physician');
             $table->foreignId('athlete_id')
                 ->constrained()
                 ->onUpdate('cascade')
