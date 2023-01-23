@@ -3,7 +3,7 @@
         ドクター ログイン
         <x-slot name="logo">
             <div class="w-20">
-                <a href="/">
+                <a href="/injury-information">
                     <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
                 </a>
             </div>
@@ -44,11 +44,11 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                @if (Route::has('doctor.password.request'))
+                {{-- @if (Route::has('doctor.password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('doctor.password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
-                @endif
+                @endif --}}
 
                 <x-button class="ml-3">
                     {{ __('Log in') }}

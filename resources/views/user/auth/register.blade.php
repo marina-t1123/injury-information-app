@@ -2,7 +2,7 @@
     <x-auth-card>
         トレーナー 新規登録
         <x-slot name="logo">
-            <a href="/">
+            <a href="/injury-information">
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
             </a>
         </x-slot>

@@ -3,7 +3,7 @@
         <h2 class="text-center">ドクター新規登録</h2>
         <x-slot name="logo">
             <div class="w-20">
-                <a href="/">
+                <a href="/injury-information">
                     <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
                 </a>
             </div>

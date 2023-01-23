@@ -2,7 +2,7 @@
     <x-auth-card>
         トレーナー ログイン
         <x-slot name="logo">
-            <a href="/">
+            <a href="/injury-information">
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
             </a>
         </x-slot>
@@ -42,11 +42,11 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                @if (Route::has('user.password.request'))
+                {{-- @if (Route::has('user.password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('user.password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
-                @endif
+                @endif --}}
 
                 <x-button class="ml-3">
                     {{ __('Log in') }}
