@@ -23,37 +23,37 @@
                         <!-- 名前 -->
                         <div class="p-2 w-3/4 mx-auto">
                             <div class="relative">
-                            <label for="name" class="leading-7 text-sm text-gray-600">
-                                名前
-                            </label>
-                            <input type="text" id="name" name="name" value="{{ old('name') }}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                <label for="name" class="leading-7 text-sm text-gray-600">
+                                    名前
+                                </label>
+                                <input type="text" id="name" name="name" value="{{ old('name') }}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                             </div>
                         </div>
                         <!-- 所属 -->
                         <div class="p-2 w-3/4 mx-auto">
                             <div class="relative">
-                            <label for="team" class="leading-7 text-sm text-gray-600">
-                                所属
-                            </label>
-                            <input type="text" id="team" name="team" value="{{ old('team') }}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                <label for="team" class="leading-7 text-sm text-gray-600">
+                                    所属
+                                </label>
+                                <input type="text" id="team" name="team" value="{{ old('team') }}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                             </div>
                         </div>
                         <!-- 電話番号 -->
                         <div class="p-2 w-3/4 mx-auto">
                             <div class="relative">
-                            <label for="phone_number" class="leading-7 text-sm text-gray-600">
-                                電話番号
-                            </label>
-                            <input type="tel" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                <label for="phone_number" class="leading-7 text-sm text-gray-600">
+                                    電話番号
+                                </label>
+                                <input type="tel" id="phone_number" name="phone_number" value="{{ old('phone_number') }}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                             </div>
                         </div>
                         <!-- 経歴 -->
                         <div class="p-2 w-3/4 mx-auto">
                             <div class="relative">
-                            <label for="career" class="leading-7 text-sm text-gray-600">
-                                経歴
-                            </label>
-                            <textarea id="career" name="career" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">{{ old('career') }}</textarea>
+                                <label for="career" class="leading-7 text-sm text-gray-600">
+                                    経歴
+                                </label>
+                                <textarea id="career" name="career" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">{{ old('career') }}</textarea>
                             </div>
                         </div>
                         <!-- ボタン -->
@@ -68,6 +68,8 @@
                     </div>
                 </form>
             </div>
+
         </div>
     </section>
+
 </x-app-layout>
