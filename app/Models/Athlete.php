@@ -4,12 +4,8 @@ namespace App\Models;
 
 use App\Models\MedicalHistory;
 use App\Models\MedicalQuestionnaire;
-use App\Models\MedicalRecord;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Athlete extends Model
 {
@@ -34,7 +30,7 @@ class Athlete extends Model
      * 選手検索のクエリのローカルスコープ
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param $search
+     * @param string $search
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeSearchAthlete($query, $search)
@@ -61,7 +57,7 @@ class Athlete extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function medicalHistories() : HasMany
+    public function medicalHistories()
     {
         return $this->HasMany(MedicalHistory::class);
     }
@@ -71,7 +67,7 @@ class Athlete extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function medicalQuestionnaires() : HasMany
+    public function medicalQuestionnaires()
     {
         return $this->HasMany(MedicalQuestionnaire::class);
     }

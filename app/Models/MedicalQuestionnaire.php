@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Athlete;
 use App\Models\MedicalRecord;
 use Carbon\Carbon;
@@ -42,7 +40,7 @@ class MedicalQuestionnaire extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function athlete() : BelongsTo
+    public function athlete()
     {
         return $this->belongsTo(Athlete::class);
     }
