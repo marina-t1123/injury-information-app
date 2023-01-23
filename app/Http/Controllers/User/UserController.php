@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Athlete;
 use App\Models\MedicalQuestionnaire;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class UserController extends Controller
