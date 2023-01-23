@@ -98,10 +98,6 @@ Route::prefix('medical-history') //URLのプレフィックスとして「/athle
         Route::get('/{athlete_id}', [MedicalHistoryController::class, 'showMedicalHistoryPage'])
             ->name('medical-history.show.menu');
 
-        // 既往歴一覧ページ表示
-        Route::get('/index', [MedicalHistoryController::class, 'index'])
-            ->name('medical-history.index');
-
         // 既往歴新規作成画面表示
         Route::get('/{athlete_id}/create', [MedicalHistoryController::class, 'create'])
             ->name('medical-history.create');

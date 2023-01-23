@@ -124,10 +124,6 @@ Route::prefix('medical-history')
         Route::get('/{athlete_id}', [DoctorMedicalHistoryController::class, 'showMedicalHistoryPage'])
             ->name('medical-history.show.menu');
 
-        //既往歴一覧画面表示
-        Route::get('/index', [DoctorMedicalHistoryController::class, 'index'])
-            ->name('medical-history.index');
-
         //既往歴詳細ページ
         Route::get('/{medical_history_id}/show', [DoctorMedicalHistoryController::class, 'show'])
             ->name('medical-history.show');
