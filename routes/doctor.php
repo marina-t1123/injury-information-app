@@ -28,13 +28,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('doctor.welcome');
+//TOPページ
+Route::get('/injury-information', function () {
+    return view('top-page');
 });
-
-Route::get('/dashboard', function () {
-    return view('doctor.dashboard');
-})->middleware(['auth:doctors'])->name('dashboard');
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])

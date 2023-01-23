@@ -23,8 +23,9 @@ use App\Http\Controllers\User\DoctorIndexController;
 |
 */
 
-Route::get('/', function () {
-    return view('user.welcome');
+//TOPページ
+Route::get('/injury-information', function () {
+    return view('top-page');
 });
 
 /**
