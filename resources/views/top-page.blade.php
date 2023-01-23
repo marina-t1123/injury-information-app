@@ -62,32 +62,10 @@
                 </div>
             </div>
 
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth('users')
-                        <a href="{{ url('/mypage') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">トレーナーマイページ</a>
-                    @endauth
-                    @auth('doctors')
-                        <a href="{{ url('/doctor/mypage') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">ドクターマイページ</a>
-                    @endauth
-                </div>
-            {{-- @if (Route::has('user.login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth('users')
-                        <a href="{{ url('/mypage') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">トレーナーマイページ</a>
-                    @else
-                        <a href="{{ route('user.login') }}" class="text-xs text-gray-700 dark:text-gray-500 underline">トレーナー登録</a>
-
-                        @if (Route::has('user.register'))
-                            <a href="{{ route('user.register') }}" class="ml-2 text-xs text-gray-700 dark:text-gray-500 underline">トレーナーログイン</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif --}}
-
-
             <div class="flex lg:w-1/2 w-full flex-col items-center justify-center mt-20 rounded-lg border border-gray-200 p-8">
 
 
+                <!-- TOPページの表示内容 -->
                 <div class="mt-4 mb-4 text-center">
                     <!-- アプリ名 -->
                     <h1 class="lg:text-4xl md:text-3xl text-2xl text-white mb-8">Injury Information</h1>
@@ -100,6 +78,7 @@
                     </p>
                 </div>
 
+                <!-- 各ユーザー説明とメニュー -->
                 <div class="container px-5 py-24 mx-auto">
                     <div class="flex flex-wrap -mx-4 -mb-10 text-center">
                         <div class="sm:w-1/2 mb-10 px-4">
@@ -143,52 +122,7 @@
                             </a>
                         </div>
                     </div>
-                  </div>
-
-                {{-- <div class="mt-25 max-w-lg sm:mx-auto md:max-w-none">
-                    <div class="flex"> --}}
-                    {{-- <div class="grid grid-cols-1 gap-y-16 md:grid-cols-2 md:gap-x-12 md:gap-y-16"> --}}
-
-                        {{-- <!-- トレーナーの新規登録・ログイン -->
-                        <div class="relative flex flex-col gap-6 sm:flex-row md:flex-col lg:flex-row">
-                            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-green-500 text-white sm:shrink-0">
-                                <!-- Heroicon name: outline/globe-alt -->
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                            </div>
-                            <div class="sm:min-w-0 sm:flex-1">
-                                <p class="text-lg font-semibold leading-8 text-white">Trainer Register And Login</p>
-                                <p class="mt-2 text-base leading-7 text-gray-600">Register as a new trainer or log in.</p>
-                                <a href="route('user.register')" class="mt-3 text-green-500 inline-flex items-center">Trainer Register
-                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                                      <path d="M5 12h14M12 5l7 7-7 7"></path>
-                                    </svg>
-                                </a>
-                                <a href="route('user.register')" class="mt-3 text-green-500 inline-flex items-center">Trainer Login
-                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                                      <path d="M5 12h14M12 5l7 7-7 7"></path>
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- ドクターの新規作成・ログイン -->
-                        <div class="relative flex flex-col gap-6 sm:flex-row md:flex-col lg:flex-row">
-                            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-green-500 text-white sm:shrink-0">
-                                <!-- Heroicon name: outline/scale -->
-                                <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 01-2.031.352 5.988 5.988 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.971zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 01-2.031.352 5.989 5.989 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.971z" />
-                                </svg>
-                            </div>
-                            <div class="sm:min-w-0 sm:flex-1">
-                                <p class="text-lg font-semibold leading-8 text-gray-900">No hidden fees</p>
-                                <p class="mt-2 text-base leading-7 text-gray-600">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div> --}}
+                </div>
 
             </div>
 
