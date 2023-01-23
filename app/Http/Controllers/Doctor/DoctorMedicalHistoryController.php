@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Doctor;
 use App\Http\Controllers\Controller;
 use App\Models\Athlete;
 use App\Models\MedicalHistory;
-use Illuminate\Http\Request;
 
 class DoctorMedicalHistoryController extends Controller
 {
