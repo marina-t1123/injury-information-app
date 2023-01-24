@@ -124,11 +124,27 @@ return [
     | instance by ID. The name specified here will get used every time a
     | new session cookie is created by the framework for every driver.
     |
+    | ここで、セッションインスタンスをIDで識別するために使用されるクッキーの名前を変更することができます。
+    | ここで指定された名前は、すべてのドライバのためにフレームワークによって新しいセッションクッキーが作成されるたびに使用されます。
+    | ※セッションIDを認識するために使うCookieの名前を[key => value]形式で変更することができる。
+    |
     */
 
-    'cookie' => env(
+    //今回は２つのユーザーがログインを行うため、それぞれユーザー毎にCookie名を変更してそれぞれのユーザーでCookieを使用できるようにする。
+
+    //デフォルト(user)のcookie名
+    'cookie' => env( //keyが「cookie」で、valueがenvの中の「SESSION_COOKIE」。
         'SESSION_COOKIE',
         Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
+        //SESSION_COOKIEがなかった場合は「Str::slug(env('APP_NAME', 'laravel'), '_').'_session'」というCookie名(injuryinformation_cookie)が使用される。
+    ),
+
+    //doctorのcookie名
+    //keyがcookie_doctor、valueをenvヘルパ関数を使用して「.env」内の「SESSION_Cookie_DOCTOR=doctor」をCookie名として指定する。
+    'cookie_doctor' => env(
+        'SESSION_COOKIE_DOCTOR',
+        Str::slug(env('APP_NAME', 'laravel'), '_').'_session_doctor'
+        //SESSION_COOKIE_DOCTORがなかった場合は「Str::slug(env('APP_NAME', 'laravel'), '_').'_session_doctor'」というCookie名(injuryinformation_cookie_doctor)が使用される。
     ),
 
     /*

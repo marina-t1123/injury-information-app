@@ -1,0 +1,12 @@
+{
+    "Login": "ログイン",
+    "Logout": "ログアウト",
+    "Register": "新規登録",
+    "Name": "名前",
+    "Email": "メールアドレス",
+    "Password": "パスワード",
+    "Confirm Password": "パスワード(確認用)",
+    "Already registered?": "登録済みの方はこちら",
+    "Remember me": "ログイン状態を保存",
+    "There is an error in the form entry.": "フォームの入力内容に誤りがあります。"
+}

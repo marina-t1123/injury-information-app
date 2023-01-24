@@ -14,5 +14,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+        $this->call([
+            UserSeeder::class,
+            UserAttributeSeeder::class,
+            DoctorSeeder::class,
+            DoctorAttributeSeeder::class,
+            AthleteSeeder::class,
+            MedicalHistorySeeder::class,
+            MedicalQuestionnaireSeeder::class,
+            MedicalRecordSeeder::class,
+            MedicalImageSeeder::class
+        ]);
     }
 }
