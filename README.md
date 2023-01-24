@@ -11,3 +11,8 @@
 少しでも、選手の情報管理をスムーズに行うことでトレーナー自身の管理の負担を減らし、スムーズに選手の
 サポートを行えるように作成しました。
 
+## ワイヤー
+[Injury Information(ワイヤー).pdf](https://github.com/marina-t1123/injury-information-app/files/10485672/Injury.Information.pdf)
+
+## URL設計
+[Injury Information - URL設計 (1).pdf](https://github.com/marina-t1123/injury-information-app/files/10486676/Injury.Information.-.URL.1.pdf)
