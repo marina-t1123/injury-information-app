@@ -137,10 +137,6 @@ Route::prefix('medical-questionnaire')
         Route::get('/{athlete_id}', [DoctorMedicalQuestionnaireController::class, 'showMedicalQuestionnairePage'])
             ->name('medical-questionnaire.show.menu');
 
-        //問診票一覧ページ表示
-        Route::get('/index', [DoctorMedicalQuestionnaireController::class, 'index'])
-            ->name('medical-questionnaire.index');
-
         //問診票詳細ページ表示
         Route::get('/{medical_questionnaire_id}/show', [DoctorMedicalQuestionnaireController::class, 'show'])
             ->name('medical-questionnaire.show');
@@ -151,7 +147,7 @@ Route::prefix('medical-record')
     ->middleware(['auth:doctors'])
     ->group(function (){
         //カルテ詳細・編集ページ表示
-        Route::get('/{medical_questionnaire_id}/medical_record', [DoctorMedicalRecordController::class, 'showMedicalRecordPage'])
+        Route::get('/{medical_questionnaire_id}', [DoctorMedicalRecordController::class, 'showMedicalRecordPage'])
             ->name('medical-record.show.menu');
 
         //カルテ編集ページ表示
@@ -163,7 +159,7 @@ Route::prefix('medical-record')
             ->name('medical-record.update');
 
         //カルテ詳細ページ表示
-        Route::post('/{medical_questionnaire_id}/medical_record/show', [DoctorMedicalRecordController::class, 'show'])
+        Route::post('/{medical_questionnaire_id}/show', [DoctorMedicalRecordController::class, 'show'])
             ->name('medical-record.show');
 
 });
