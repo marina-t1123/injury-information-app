@@ -66,7 +66,7 @@
                                 <label for="swelling" class="leading-7 text-sm text-gray-600">
                                     診断名
                                 </label>
-                                <input type="text" name="swelling" id="swelling" value="{{ $medicalRecord->swelling}}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></input>
+                                <textarea id="swelling" name="swelling" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">{{ $medicalRecord->swelling }}</textarea>
                             </div>
                         </div>
                         <!-- 今後の方針 -->
