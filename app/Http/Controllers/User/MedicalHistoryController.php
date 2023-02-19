@@ -163,7 +163,7 @@ class MedicalHistoryController extends Controller
     public function destroy($medical_history_id)
     {
         //選手IDを取得
-        $athlete_id = MedicalHistory::getMedicalHistory($medical_history_id)->value('athlete_id');
+        $athlete_id = MedicalHistory::getMedicalHistory($medical_history_id)->athlete_id;
 
         //既往歴を削除する
         DB::beginTransaction();
