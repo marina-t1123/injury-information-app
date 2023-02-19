@@ -37,32 +37,58 @@
                         </div>
                         <!-- 選手メニュー -->
                         <div class="athlete_menu">
-                            <!-- 既往歴 -->
-                            <a href="{{ route('user.medical-history.show.menu', ['athlete_id' => $todayMedicalQuestionnaire->athlete_id ])}}" class="">
-                                <button class="flex items-center mt-auto mb-1 text-sm text-white bg-gray-400 border-0 py-2 px-4 w-full focus:outline-none hover:bg-gray-500 rounded">既往歴
-                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-auto" viewBox="0 0 24 24">
-                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                                    </svg>
-                                </button>
-                            </a>
-                            <!-- 問診票・カルテ詳細 -->
-                            <a href="{{ route('user.medical-questionnaire.show.menu', ['athlete_id' => $todayMedicalQuestionnaire->athlete_id ])}}">
-                                <button class="flex items-center mt-auto mb-1 text-sm text-white bg-gray-400 border-0 py-2 px-4 w-full focus:outline-none hover:bg-gray-500 rounded">問診票・カルテ
-                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-auto" viewBox="0 0 24 24">
-                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                                    </svg>
-                                </button>
-                            </a>
-                            <!-- 選手設定 -->
-                            <a href="{{ route('user.athlete.show.setting', [ 'athlete_id' => $todayMedicalQuestionnaire->athlete_id ]) }}">
-                                <button class="flex items-center mt-auto mb-1 text-sm text-white bg-gray-400 border-0 py-2 px-4 w-full focus:outline-none hover:bg-gray-500 rounded">選手設定
-                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-auto" viewBox="0 0 24 24">
-                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                                    </svg>
-                                </button>
-                            </a>
+                            @if(request()->is('doctor*'))
+                                <!-- 既往歴 -->
+                                <a href="{{ route('doctor.medical-history.show.menu', ['athlete_id' => $todayMedicalQuestionnaire->athlete_id ])}}" class="">
+                                    <button class="flex items-center mt-auto mb-1 text-sm text-white bg-gray-400 border-0 py-2 px-4 w-full focus:outline-none hover:bg-gray-500 rounded">既往歴
+                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-auto" viewBox="0 0 24 24">
+                                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </a>
+                                <!-- 問診票・カルテ詳細 -->
+                                <a href="{{ route('doctor.medical-questionnaire.show.menu', ['athlete_id' => $todayMedicalQuestionnaire->athlete_id ])}}">
+                                    <button class="flex items-center mt-auto mb-1 text-sm text-white bg-gray-400 border-0 py-2 px-4 w-full focus:outline-none hover:bg-gray-500 rounded">問診票・カルテ
+                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-auto" viewBox="0 0 24 24">
+                                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </a>
+                                <!-- 選手設定 -->
+                                <a href="{{ route('doctor.athlete.show', [ 'athlete_id' => $todayMedicalQuestionnaire->athlete_id ]) }}">
+                                    <button class="flex items-center mt-auto mb-1 text-sm text-white bg-gray-400 border-0 py-2 px-4 w-full focus:outline-none hover:bg-gray-500 rounded">選手設定
+                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-auto" viewBox="0 0 24 24">
+                                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </a>
+                            @else
+                                <!-- 既往歴 -->
+                                <a href="{{ route('user.medical-history.show.menu', ['athlete_id' => $todayMedicalQuestionnaire->athlete_id ])}}" class="">
+                                    <button class="flex items-center mt-auto mb-1 text-sm text-white bg-gray-400 border-0 py-2 px-4 w-full focus:outline-none hover:bg-gray-500 rounded">既往歴
+                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-auto" viewBox="0 0 24 24">
+                                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </a>
+                                <!-- 問診票・カルテ詳細 -->
+                                <a href="{{ route('user.medical-questionnaire.show.menu', ['athlete_id' => $todayMedicalQuestionnaire->athlete_id ])}}">
+                                    <button class="flex items-center mt-auto mb-1 text-sm text-white bg-gray-400 border-0 py-2 px-4 w-full focus:outline-none hover:bg-gray-500 rounded">問診票・カルテ
+                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-auto" viewBox="0 0 24 24">
+                                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </a>
+                                <!-- 選手設定 -->
+                                <a href="{{ route('user.athlete.show.setting', [ 'athlete_id' => $todayMedicalQuestionnaire->athlete_id ]) }}">
+                                    <button class="flex items-center mt-auto mb-1 text-sm text-white bg-gray-400 border-0 py-2 px-4 w-full focus:outline-none hover:bg-gray-500 rounded">選手設定
+                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-auto" viewBox="0 0 24 24">
+                                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </a>
+                            @endif
                         </div>
-
                     </div>
                 @endforeach
                 </div>
