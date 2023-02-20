@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class AthleteFactory extends Factory
 {
@@ -15,7 +16,7 @@ class AthleteFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'email' => $this->faker->safeEmail(),
+            'email' => Str::random(8).'@gmail.com',
             'phone_number' => $this->faker->phoneNumber(),
             'team' => $this->faker->company(),
             'event' => '柔道',
