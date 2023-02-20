@@ -4,7 +4,11 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\UserAttributeRequest;
+use App\Models\UserAttribute;
+use App\Http\Requests\UserAttributeRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class UserAttributeController extends Controller
 {
@@ -32,7 +36,7 @@ class UserAttributeController extends Controller
         return view('user-attribute.create', compact('user'));
     }
 
-    public function store(userAttributeRequest $request, $id)
+    public function store(UserAttributeRequest $request, $id)
     {
 
         //トレーナーの名前を登録する。
@@ -69,7 +73,7 @@ class UserAttributeController extends Controller
     public function update(UserAttributeRequest $request, $id)
     {
         //編集するトレーナー詳細を取得する
-        $targetUser = User::getuser($id);
+        $targetUser = User::getUser($id);
 
         //トレーナーの名前が編集前と違った場合、更新する
         if( $targetUser->name !== $request->name)
@@ -85,10 +89,9 @@ class UserAttributeController extends Controller
             try {
                 //編集する詳細データを設定
                 $userAttribute = [
-                    'hospital_name' => $request->hospital_name,
+                    'team' => $request->team,
                     'phone_number' => $request->phone_number,
-                    'particular_field' => $request->particular_field,
-                    'career' => $request->career
+                    'career' => $request->career,
                 ];
                 //詳細データを更新する
                 $targetUser->userAttribute()->update($userAttribute);
