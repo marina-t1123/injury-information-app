@@ -42,8 +42,6 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('doctor.register')">ドクター新規登録</x-dropdown-link>
-                        <x-dropdown-link :href="route('doctor.login')">ドクターログイン</x-dropdown-link>
                         <x-dropdown-link :href="route('user.user-attribute.menu', ['id' => Auth::user()->id ])">ユーザー詳細設定</x-dropdown-link>
 
                         <!-- Authentication -->
@@ -86,12 +84,6 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('user.user-attribute.menu', ['id' => Auth::user()->id ])">
                 <p>ユーザー詳細設定</p>
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('doctor.register')">
-                <p>ドクター新規作成</p>
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('doctor.login')">
-                <p>ドクターログイン</p>
             </x-responsive-nav-link>
         </div>
 
