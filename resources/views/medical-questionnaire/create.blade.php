@@ -152,6 +152,8 @@
                                             <option value="{{ $doctor->name }}" @if(old('attending_physician') === $doctor->name) selected @endif >{{ $doctor->name }}</option>
                                         @endforeach
                                     </select>
+                                @else
+                                    <p>ドクターが未登録です</p>
                                 @endif
                             </div>
                         </div>
