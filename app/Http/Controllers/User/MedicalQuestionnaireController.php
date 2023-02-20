@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\Athlete;
+use App\Models\Doctor;
 use App\Models\MedicalQuestionnaire;
 use App\Models\MedicalRecord;
 use App\Models\MedicalImage;
@@ -43,8 +44,10 @@ class MedicalQuestionnaireController extends Controller
     {
         //選手情報を取得
         $athlete = Athlete::getAthlete($athlete_id);
+        //登録済みのドクターを取得する
+        $doctors = Doctor::all();
         //問診票の新規作成画面にリダイレクトする
-        return view('medical-questionnaire.create', compact('athlete'));
+        return view('medical-questionnaire.create', compact('athlete', 'doctors'));
     }
 
     /**
