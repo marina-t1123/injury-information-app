@@ -19,7 +19,7 @@
                     <p>診察内容：<br> {{ $medicalRecord->medical_examination }}</p>
                     <p>テスト内容：<br> {{ $medicalRecord->tests }}</p>
                     <p>ドクター所見：<br> {{ $medicalRecord->docter_findings }}</p>
-                    <p>診断名： {{ $medicalRecord->swelling }}</p>
+                    <p>診断名：<br> {{ $medicalRecord->swelling }}</p>
                     <p>今後の方針：<br> {{ $medicalRecord->future_policies }}</p>
                     <p>画像：</p><br>
                     @foreach ($medicalImages as $medicalImage)

@@ -26,7 +26,7 @@ class AthleteRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email:filter,dns|max:255',
-            'phone_number' => 'required|string|regex:/^(0{1}\d{1,4}-{0,1}\d{1,4}-{0,1}\d{4})$/',
+            'phone_number' => 'required|string|regex:/^0[0-9]{1,4}-[0-9]{1,4}-[0-9]{3,4}\z/',
             'team' => 'nullable|string|max:255',
             'event' => 'required|string|max:255',
             'event_detail' => 'required|string|max:255',
@@ -44,9 +44,9 @@ class AthleteRequest extends FormRequest
     public function messages()
     {
         return [
-            'event.required' => ':attribute の入力をお願いします',
-            'event_detail.required' => ':attribute の入力をお願いします',
-            'phone_number.regex' => ':attribute は、「00-0000-0000」か「000-0000-0000」の形式で入力して下さい'
+            'event.required' => ':attributeの入力をお願いします',
+            'event_detail.required' => ':attributeの入力をお願いします',
+            'phone_number.regex' => ':attributeは、-(ハイフン)ありの電話番号の形式で入力して下さい'
         ];
     }
 

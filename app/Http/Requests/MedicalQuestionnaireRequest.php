@@ -49,8 +49,8 @@ class MedicalQuestionnaireRequest extends FormRequest
     public function messages()
     {
         return [
-            'injured_day.before' => ':attribute の日付は明日より前の日付を指定してください。',
-            'hospital_day.after' => ':attribute の日付は昨日以降の日付を指定してください。'
+            'injured_day.before' => ':attributeの日付は本日以前の日付を指定してください。',
+            'hospital_day.after' => ':attributeの日付は本日以降の日付を指定してください。'
         ];
     }
 
