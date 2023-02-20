@@ -145,7 +145,14 @@
                                 <label for="attending_physician" class="leading-7 text-sm text-gray-600">
                                     担当医
                                 </label>
-                                <input type="text" id="attending_physician" name="attending_physician" value="{{ old('attending_physician') }}" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                @if($doctors->isNotEmpty())
+                                    <select name="attending_physician" id="attending_physician" class="w-full bg-white bg-opacity-50 rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <option value="">選択してください</option>
+                                        @foreach($doctors as $doctor)
+                                            <option value="{{ $doctor->name }}" @if(old('attending_physician') === $doctor->name) selected @endif >{{ $doctor->name }}</option>
+                                        @endforeach
+                                    </select>
+                                @endif
                             </div>
                         </div>
                         <!-- ボタン -->
